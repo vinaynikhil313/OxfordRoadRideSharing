@@ -1,0 +1,37 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              tools:context=".login.login.email.view.LoginActivityFragment"
+              tools:showIn="@layout/login_activity_main">
+
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/detailsFragment"
+        tools:layout="@layout/details_fragment"
+        android:layout_marginTop="60dp"
+        android:name="com.vinay.oxfordroadridesharing.login.login.email.DetailsFragment"/>
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:onClick="login"
+        android:text="Login"
+        android:textAllCaps="false"/>
+
+    <!--<TextView
+        android:id="@+id/registerText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center"
+        android:text="New User? Register Here"
+        android:linksClickable="false"
+        android:textSize="20dp"/>-->
+
+</LinearLayout>

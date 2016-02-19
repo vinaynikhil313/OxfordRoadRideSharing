@@ -1,0 +1,62 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Welcome to TOMBEN"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:id="@+id/textView2"/>
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.vinay.oxfordroadridesharing.login.login.email.view.LoginActivityFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:layout="@layout/login_fragment_main"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp">
+
+        <TextView
+            android:id="@+id/registerText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New User?\nRegister Here"
+            android:layout_alignParentLeft="true"
+            android:linksClickable="false"/>
+
+        <TextView
+            android:id="@+id/forgotPasswordText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Forgot Password?\nReset Here"
+            android:layout_alignParentRight="true"
+            android:linksClickable="false"/>
+
+
+    </RelativeLayout>
+
+    <fragment
+        android:id="@+id/facebookLoginFragment"
+        android:name="com.vinay.oxfordroadridesharing.login.login.facebook.view.FacebookLoginFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        tools:layout="@layout/login_facebook_fragment"/>
+
+</LinearLayout>
