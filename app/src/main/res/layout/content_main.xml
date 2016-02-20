@@ -1,9 +1,21 @@
-<fragment android:id="@+id/fragment"
-          android:name="com.vinay.oxfordroadridesharing.MainActivityFragment"
-          xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:app="http://schemas.android.com/apk/res-auto"
-          xmlns:tools="http://schemas.android.com/tools"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          app:layout_behavior="@string/appbar_scrolling_view_behavior"
-          tools:layout="@layout/fragment_main"/>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/destination"
+        android:hint="Enter Destination"
+        android:layout_marginTop="100dp"/>
+
+    <fragment
+        android:id="@+id/mapsFragment"
+        android:name="com.vinay.oxfordroadridesharing.main.MainActivityFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout="@layout/maps_fragment"/>
+
+</FrameLayout>
