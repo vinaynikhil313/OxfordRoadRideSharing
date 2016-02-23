@@ -6,6 +6,7 @@ import com.vinay.oxfordroadridesharing.login.login.email.interactor.EmailLoginIn
 import com.vinay.oxfordroadridesharing.login.login.email.interactor.EmailLoginInteractorImpl;
 import com.vinay.oxfordroadridesharing.login.login.email.view.EmailLoginFragmentView;
 import com.vinay.oxfordroadridesharing.login.login.email.view.LoginActivityFragment;
+import com.vinay.oxfordroadridesharing.user.User;
 
 
 /**
@@ -13,40 +14,43 @@ import com.vinay.oxfordroadridesharing.login.login.email.view.LoginActivityFragm
  */
 public class EmailLoginPresenterImpl implements EmailLoginPresenter, OnEmailLoginFinishedListener {
 
-    private EmailLoginFragmentView loginActivityFragment;
-    private EmailLoginInteractor emailLoginInteractor;
+    private EmailLoginFragmentView view;
+    private EmailLoginInteractor interactor;
 
     public EmailLoginPresenterImpl (LoginActivityFragment loginActivityFragment){
-        this.loginActivityFragment = loginActivityFragment;
-        emailLoginInteractor = new EmailLoginInteractorImpl ();
+        this.view = loginActivityFragment;
+        interactor = new EmailLoginInteractorImpl ();
     }
 
     @Override
     public void authenticateCredentials (String email, String password) {
 
-        loginActivityFragment.showProgressDialog ();
-        if(loginActivityFragment != null)
-            emailLoginInteractor.authenticateWithEmail (email, password, this);
+        view.showProgressDialog ();
+        if(view != null)
+            interactor.authenticateWithEmail (email, password, this);
         //AuthenticateUser.authWithEmailPassword (email, password, loginActivityFragment.getFragment ().getContext ());
     }
 
     @Override
     public void onEmailError () {
-        loginActivityFragment.hideProgressDialog ();
-        loginActivityFragment.emailError ();
+        view.hideProgressDialog ();
+        view.emailError ();
     }
 
     @Override
     public void onPasswordError () {
-        loginActivityFragment.hideProgressDialog ();
-        loginActivityFragment.passwordError ();
+        view.hideProgressDialog ();
+        view.passwordError ();
     }
 
     @Override
-    public void onSuccess (String uid, String token) {
-        loginActivityFragment.writeToSharedPreferences (uid, token);
-        Log.i ("EMAIL PRESENTER", uid + " " + token);
-        loginActivityFragment.hideProgressDialog ();
-        loginActivityFragment.openMainPage ();
+    public void onSuccess (User user) {
+        view.writeToSharedPreferences (user);
+        Log.i ("EMAIL PRESENTER", "UID = " + user.getId ());
+        view.hideProgressDialog ();
+        if(user.getPreferences ().size () > 0)
+            view.openMainPage ();
+        else{}
+            //view.openPreferencesPage ();
     }
 }

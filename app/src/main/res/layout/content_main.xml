@@ -2,20 +2,25 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:orientation="vertical">
+
+    <include layout="@layout/maps_fragment"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="#FCFCFC">
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/destination"
         android:hint="Enter Destination"
-        android:layout_marginTop="100dp"/>
-
-    <fragment
-        android:id="@+id/mapsFragment"
-        android:name="com.vinay.oxfordroadridesharing.main.MainActivityFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout="@layout/maps_fragment"/>
+        android:layout_margin="10dp"/>
+    </LinearLayout>
 
 </FrameLayout>

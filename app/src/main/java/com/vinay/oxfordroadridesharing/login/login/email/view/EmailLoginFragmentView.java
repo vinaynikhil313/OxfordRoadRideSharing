@@ -1,5 +1,7 @@
 package com.vinay.oxfordroadridesharing.login.login.email.view;
 
+import com.vinay.oxfordroadridesharing.user.User;
+
 /**
  * Created by Vinay Nikhil Pabba on 22-01-2016.
  */
@@ -11,7 +13,7 @@ public interface EmailLoginFragmentView {
 
     void openMainPage ();
 
-    void writeToSharedPreferences (String uid, String token);
+    void writeToSharedPreferences(User user);
 
     void showProgressDialog ();
 

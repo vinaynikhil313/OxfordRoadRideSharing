@@ -10,6 +10,7 @@ import com.vinay.oxfordroadridesharing.login.login.facebook.interactor.FacebookL
 import com.vinay.oxfordroadridesharing.login.login.facebook.interactor.FacebookLoginInteractorImpl;
 import com.vinay.oxfordroadridesharing.login.login.facebook.view.FacebookLoginFragment;
 import com.vinay.oxfordroadridesharing.login.login.facebook.view.FacebookLoginFragmentView;
+import com.vinay.oxfordroadridesharing.user.User;
 
 /**
  * Created by Vinay Nikhil Pabba on 27-01-2016.
@@ -37,11 +38,15 @@ public class FacebookLoginPresenterImpl implements FacebookLoginPresenter,
     }
 
     @Override
-    public void onFirebaseLoginSuccess (String uid, String token) {
-        Log.i(TAG, "Firebase Facebook Login successful");
-        view.writeToSharedPrefernces (uid, token);
+    public void onFirebaseLoginSuccess (User user) {
+        Log.i (TAG, "Firebase Facebook Login successful");
+        view.writeToSharedPrefernces (user);
         view.hideProgressDialog ();
-        view.openMainPage ();
+
+        if(user.getPreferences ().size () > 0)
+            view.openMainPage ();
+        else{}
+            //view.openPreferencesPage ();
     }
 
     @Override

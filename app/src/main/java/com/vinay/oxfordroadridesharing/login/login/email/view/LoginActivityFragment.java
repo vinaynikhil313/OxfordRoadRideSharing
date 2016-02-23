@@ -15,10 +15,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.vinay.oxfordroadridesharing.login.login.email.presenter.EmailLoginPresenter;
 import com.vinay.oxfordroadridesharing.login.login.email.presenter.EmailLoginPresenterImpl;
 import com.vinay.oxfordroadridesharing.main.MainActivity;
 import com.vinay.oxfordroadridesharing.R;
+import com.vinay.oxfordroadridesharing.user.User;
 import com.vinay.oxfordroadridesharing.utils.Constants;
 
 
@@ -41,6 +43,9 @@ public class LoginActivityFragment extends Fragment implements EmailLoginFragmen
 
     View viewGroup;
 
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+
     public LoginActivityFragment(){
 
     }
@@ -51,6 +56,9 @@ public class LoginActivityFragment extends Fragment implements EmailLoginFragmen
         viewGroup = inflater.inflate (R.layout.login_fragment_main, container, false);
 
         emailLoginPresenter = new EmailLoginPresenterImpl (this);
+
+        sharedPreferences = getContext ().getSharedPreferences (Constants.MY_PREF, Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit ();
 
         email = (EditText) viewGroup.findViewById (R.id.emailText);
         password = (EditText) viewGroup.findViewById (R.id.passwordText);
@@ -95,15 +103,13 @@ public class LoginActivityFragment extends Fragment implements EmailLoginFragmen
     }
 
     @Override
-    public void writeToSharedPreferences (String uid, String token) {
-        SharedPreferences sharedPreferences = getContext ().getSharedPreferences (Constants.MY_PREF, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit ();
-        editor.putString ("provider", "password");
-        Log.i ("EMAIL VIEW", uid + " " + token);
-        editor.putString ("uid", uid);
-        editor.putString ("accessToken", token);
+    public void writeToSharedPreferences (User user) {
+        Log.i ("EMAIL VIEW", "UID = " + user.getUid ());
+        Gson userGson = new Gson ();
+        String userJson = userGson.toJson (user);
+        editor.putString ("user", userJson);
         editor.commit ();
-        Log.i("Login UID", "The uid is - " + sharedPreferences.getString ("uid", ""));
+        Log.i("Login UID", "The uid is - " + sharedPreferences.getString ("user", ""));
     }
 
     @Override

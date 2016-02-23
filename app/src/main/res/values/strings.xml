@@ -3,4 +3,5 @@
     <string name="action_settings">Settings</string>
     <string name="facebook_app_id">740080162794838</string>
     <string name="access_token">pk.eyJ1IjoidmluYXluaWtoaWwiLCJhIjoiY2lrdHRrcDYzMDA3dnVta3MzdWVmZGR1ayJ9.iWow1sQS5ZUhglsB-IwoVA</string>
+    <string name="google_api_key">AIzaSyDUjDbBalQ-qcaAwdOLdYO2NVKJeDU3JuM</string>
 </resources>

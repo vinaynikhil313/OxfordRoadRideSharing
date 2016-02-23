@@ -16,9 +16,11 @@ import android.widget.Toast;
 
 import com.facebook.CallbackManager;
 import com.facebook.login.widget.LoginButton;
+import com.google.gson.Gson;
 import com.vinay.oxfordroadridesharing.main.MainActivity;
 import com.vinay.oxfordroadridesharing.R;
 import com.vinay.oxfordroadridesharing.login.login.facebook.presenter.FacebookLoginPresenterImpl;
+import com.vinay.oxfordroadridesharing.user.User;
 import com.vinay.oxfordroadridesharing.utils.Constants;
 
 /**
@@ -75,12 +77,12 @@ public class FacebookLoginFragment extends Fragment implements FacebookLoginFrag
     }
 
     @Override
-    public void writeToSharedPrefernces (String uid, String token) {
+    public void writeToSharedPrefernces (User user) {
         SharedPreferences sharedPreferences = getContext ().getSharedPreferences (Constants.MY_PREF, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit ();
-        editor.putString ("provider", "facebook");
-        editor.putString ("uid", uid);
-        editor.putString ("accessToken", token);
+        Gson gson = new Gson ();
+        String userJson = gson.toJson (user);
+        editor.putString ("user", userJson);
         editor.commit ();
     }
 

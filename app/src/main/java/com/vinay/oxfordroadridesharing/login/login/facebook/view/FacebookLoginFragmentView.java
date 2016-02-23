@@ -1,5 +1,7 @@
 package com.vinay.oxfordroadridesharing.login.login.facebook.view;
 
+import com.vinay.oxfordroadridesharing.user.User;
+
 /**
  * Created by Vinay Nikhil Pabba on 22-01-2016.
  */
@@ -9,7 +11,7 @@ public interface FacebookLoginFragmentView {
 
     void onError ();
 
-    void writeToSharedPrefernces (String uid, String token);
+    void writeToSharedPrefernces(User user);
 
     void showProgressDialog ();
 

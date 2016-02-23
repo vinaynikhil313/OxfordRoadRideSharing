@@ -7,9 +7,12 @@ import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.firebase.client.AuthData;
+import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 import com.vinay.oxfordroadridesharing.login.login.facebook.presenter.OnFacebookLoginFinishedListener;
+import com.vinay.oxfordroadridesharing.user.User;
 import com.vinay.oxfordroadridesharing.utils.Constants;
 import com.vinay.oxfordroadridesharing.utils.UpdateFirebaseLogin;
 
@@ -18,7 +21,8 @@ import org.json.JSONObject;
 /**
  * Created by Vinay Nikhil Pabba on 27-01-2016.
  */
-public class FacebookLoginInteractorImpl implements FacebookLoginInteractor, Firebase.AuthResultHandler{
+public class FacebookLoginInteractorImpl implements
+        FacebookLoginInteractor, Firebase.AuthResultHandler, ValueEventListener{
 
     Firebase firebase = new Firebase(Constants.FIREBASE_REF);
     OnFacebookLoginFinishedListener listener;
@@ -50,12 +54,26 @@ public class FacebookLoginInteractorImpl implements FacebookLoginInteractor, Fir
 
     @Override
     public void onAuthenticated (AuthData authData) {
-        listener.onFirebaseLoginSuccess (authData.getUid (), authData.getToken ());
+        //listener.onFirebaseLoginSuccess (user);
         UpdateFirebaseLogin.updateFirebase (authData);
+
+        firebase.child ("users").child (authData.getUid ()).addListenerForSingleValueEvent (this);
     }
 
     @Override
     public void onAuthenticationError (FirebaseError firebaseError) {
         listener.onFirebaseLoginFailure ();
+    }
+
+    @Override
+    public void onCancelled (FirebaseError firebaseError) {
+
+    }
+
+    @Override
+    public void onDataChange (DataSnapshot dataSnapshot) {
+        User user = dataSnapshot.getValue (User.class);
+        Log.i("FACEBOOK INTERACTOR", "UID = " + user.getUid ());
+        listener.onFirebaseLoginSuccess (user);
     }
 }
