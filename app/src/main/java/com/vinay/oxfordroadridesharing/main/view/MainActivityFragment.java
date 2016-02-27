@@ -70,7 +70,7 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
 
         ride.setOnClickListener (new View.OnClickListener () {
 
-            LayoutInflater mLayoutInflater = mMainActivity.getLayoutInflater ();
+            int mRideMode;
 
             @Override
             public void onClick (View v) {
@@ -82,18 +82,20 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
                             @Override
                             public void onClick (DialogInterface dialog, int which) {
                                 Log.i(TAG, "Selected item is " + which);
+                                mRideMode = which;
                             }
                         })
                         .setPositiveButton ("Ride!", new DialogInterface.OnClickListener () {
                             @Override
                             public void onClick (DialogInterface dialog, int which) {
-
+                                if(mRideMode == 0)
+                                    startAutoComplete ();
                             }
                         })
                         .setNegativeButton ("Cancel", new DialogInterface.OnClickListener () {
                             @Override
                             public void onClick (DialogInterface dialog, int which) {
-                                Log.i(TAG, "Cancel Pressed");
+                                Log.i (TAG, "Cancel Pressed");
                             }
                         })
                         .setCancelable (true);
@@ -131,7 +133,6 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
                         .build ();
 
                 mGoogleMap.animateCamera (CameraUpdateFactory.newCameraPosition (cameraPosition));
-                mGoogleMap.setMyLocationEnabled (true);
             }
         });
 
@@ -173,7 +174,7 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
         mGoogleMap.addMarker (marker);
         CameraPosition cameraPosition = new CameraPosition.Builder ()
                 .target (latLng)
-                .zoom (9)
+                .zoom (Constants.LOCATION_ZOOM_LEVEL-2)
                 .build ();
         mGoogleMap.animateCamera (CameraUpdateFactory.newCameraPosition (cameraPosition));
     }
@@ -181,6 +182,7 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
     int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
 
     void startAutoComplete () {
+
         try {
             Intent intent =
                     new PlaceAutocomplete.IntentBuilder (PlaceAutocomplete.MODE_OVERLAY)
@@ -222,7 +224,11 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
     @Override
     public void moveToLocation (LatLng latLng) {
         Log.i(TAG, latLng.toString ());
+
+        String placeId = presenter.getPlaceId (latLng);
+
         CameraPosition cameraPosition = new CameraPosition (latLng, Constants.LOCATION_ZOOM_LEVEL, 0, 0);
         mGoogleMap.animateCamera (CameraUpdateFactory.newCameraPosition (cameraPosition));
+        mGoogleMap.setMyLocationEnabled (true);
     }
 }

@@ -38,4 +38,10 @@ public class MainActivityFragmentPresenterImpl implements MainActivityFragmentPr
     public void onLocationDetected (LatLng latLng) {
         view.moveToLocation (latLng);
     }
+
+    @Override
+    public String getPlaceId (LatLng latLng) {
+        interactor.getPlaceId (latLng);
+        return null;
+    }
 }

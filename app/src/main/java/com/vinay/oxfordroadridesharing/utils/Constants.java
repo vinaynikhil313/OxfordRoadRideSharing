@@ -16,7 +16,6 @@ public class Constants {
     public static final int CHANGE = 1000;
     public static final String PROVIDER_FACEBOOK = "facebook";
     public static final String PROVIDER_PASSWORD = "password";
-    public static final String keyHash = "8XW4Tm11KKGeQYhWHr95gtgY4Ws=";
 
     public static final double LONDON_LAT = 51.5072;
     public static final double LONDON_LNG = -0.1300;
