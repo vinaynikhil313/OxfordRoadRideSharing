@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import com.vinay.oxfordroadridesharing.login.register.presenter.RegisterPresenter;
 import com.vinay.oxfordroadridesharing.login.register.presenter.RegisterPresenterImpl;
-import com.vinay.oxfordroadridesharing.main.MainActivity;
+import com.vinay.oxfordroadridesharing.main.view.MainActivity;
 import com.vinay.oxfordroadridesharing.R;
 import com.vinay.oxfordroadridesharing.utils.Constants;
 

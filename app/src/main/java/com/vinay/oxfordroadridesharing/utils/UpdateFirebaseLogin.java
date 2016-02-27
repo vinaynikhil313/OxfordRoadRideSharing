@@ -47,4 +47,10 @@ public class UpdateFirebaseLogin {
         //Log.i (TAG, "Logged in with provider - " + authData.getProvider ());
     }
 
+    public static void unauth(){
+
+        firebase.unauth ();
+
+    }
+
 }

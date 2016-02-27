@@ -17,7 +17,7 @@ import android.widget.Toast;
 import com.facebook.CallbackManager;
 import com.facebook.login.widget.LoginButton;
 import com.google.gson.Gson;
-import com.vinay.oxfordroadridesharing.main.MainActivity;
+import com.vinay.oxfordroadridesharing.main.view.MainActivity;
 import com.vinay.oxfordroadridesharing.R;
 import com.vinay.oxfordroadridesharing.login.login.facebook.presenter.FacebookLoginPresenterImpl;
 import com.vinay.oxfordroadridesharing.user.User;

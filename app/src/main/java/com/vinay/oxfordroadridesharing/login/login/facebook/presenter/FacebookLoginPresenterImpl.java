@@ -8,7 +8,6 @@ import com.facebook.FacebookException;
 import com.facebook.login.LoginResult;
 import com.vinay.oxfordroadridesharing.login.login.facebook.interactor.FacebookLoginInteractor;
 import com.vinay.oxfordroadridesharing.login.login.facebook.interactor.FacebookLoginInteractorImpl;
-import com.vinay.oxfordroadridesharing.login.login.facebook.view.FacebookLoginFragment;
 import com.vinay.oxfordroadridesharing.login.login.facebook.view.FacebookLoginFragmentView;
 import com.vinay.oxfordroadridesharing.user.User;
 
@@ -23,7 +22,7 @@ public class FacebookLoginPresenterImpl implements FacebookLoginPresenter,
 
     private static final String TAG = FacebookLoginPresenterImpl.class.getSimpleName ();
 
-    public FacebookLoginPresenterImpl(FacebookLoginFragment view){
+    public FacebookLoginPresenterImpl(FacebookLoginFragmentView view){
 
         this.view = view;
         interactor = new FacebookLoginInteractorImpl ();
@@ -43,9 +42,9 @@ public class FacebookLoginPresenterImpl implements FacebookLoginPresenter,
         view.writeToSharedPrefernces (user);
         view.hideProgressDialog ();
 
-        if(user.getPreferences ().size () > 0)
+        //if(user.getPreferences ().size () > 0)
             view.openMainPage ();
-        else{}
+        //else{}
             //view.openPreferencesPage ();
     }
 

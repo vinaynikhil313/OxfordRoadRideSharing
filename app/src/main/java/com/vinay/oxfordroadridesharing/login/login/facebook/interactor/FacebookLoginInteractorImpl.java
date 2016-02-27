@@ -40,7 +40,8 @@ public class FacebookLoginInteractorImpl implements
                         Log.i("JSON ", json.toString ());
 
                         if (json != null) {
-                            firebase.authWithOAuthToken ("facebook", AccessToken.getCurrentAccessToken ().getToken (), FacebookLoginInteractorImpl.this);
+                            firebase.authWithOAuthToken (Constants.PROVIDER_FACEBOOK,
+                                    AccessToken.getCurrentAccessToken ().getToken (), FacebookLoginInteractorImpl.this);
                         }
 
                     }

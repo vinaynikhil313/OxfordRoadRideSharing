@@ -1,26 +1,23 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <include layout="@layout/maps_fragment"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"/>
-
-
-    <LinearLayout
+    <include
+        layout="@layout/maps_fragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:background="#FCFCFC">
+        android:layout_height="match_parent"/>
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/destination"
-        android:hint="Enter Destination"
-        android:layout_margin="10dp"/>
-    </LinearLayout>
+    <Button
+        android:id="@+id/rideButton"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:background="@drawable/round_button"
+        android:layout_marginBottom="30dp"
+        android:text="Ride Now!"
+        android:textColor="#fff"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal|bottom"/>
 
 </FrameLayout>

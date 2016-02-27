@@ -7,19 +7,24 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Base64;
 import android.util.Log;
+import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.facebook.FacebookSdk;
+import com.google.gson.Gson;
+import com.vinay.oxfordroadridesharing.R;
 import com.vinay.oxfordroadridesharing.login.login.LoginActivity;
+import com.vinay.oxfordroadridesharing.main.view.MainActivity;
 import com.vinay.oxfordroadridesharing.start.presenter.StartPagePresenter;
 import com.vinay.oxfordroadridesharing.start.presenter.StartPagePreviousLoginChecker;
-import com.vinay.oxfordroadridesharing.main.MainActivity;
-import com.vinay.oxfordroadridesharing.R;
+import com.vinay.oxfordroadridesharing.user.User;
 import com.vinay.oxfordroadridesharing.utils.Constants;
 
 import java.security.MessageDigest;
@@ -66,14 +71,20 @@ public class StartPage extends Activity implements StartPageView{
     }
 
     void checkPreviousPasswordLogin(){
-        Log.i (TAG, "Checking previous password com.example.benjaminlize.loginapp.GlobalLogin.login");
-        //if logged in by email
-        if(sharedPreferences.getString ("provider", "").equals ("password")){
-            String token = sharedPreferences.getString ("accessToken", "");
+        Log.i (TAG, "Checking previous password login");
+        String userJson = sharedPreferences.getString ("user", "");
+        if(!userJson.equals ("") && !userJson.isEmpty ()){
+            Log.i (TAG, "Provider is password");
+            Gson gson = new Gson ();
+            //String userJson = sharedPreferences.getString ("user", "");
+            User user = gson.fromJson (userJson, User.class);
+            if(user == null)
+                return;
+            String token = user.getAccessToken (); //sharedPreferences.getString ("accessToken", "");
             Log.i(TAG + " Token ", token);
-            if(!token.equals ("")) {
+            if(user.getProvider ().equals (Constants.PROVIDER_PASSWORD) && !token.equals ("")) {
                 presenter.loginWithPassword (token);
-                openLoginPageFlag = false;
+                disableLoginPage ();
             }
 
         }
@@ -123,6 +134,12 @@ public class StartPage extends Activity implements StartPageView{
 
             @Override
             public void run () {
+                if(!isNetworkAvailable ()){
+                    progressBar.setVisibility (View.GONE);
+                    Toast.makeText (StartPage.this, "Internet not available..." +
+                            "\nPlease check your internet and try again", Toast.LENGTH_LONG).show ();
+                    finish ();
+                }
                 if(openLoginPageFlag) {
                     openLoginPage ();
                 }
@@ -134,8 +151,8 @@ public class StartPage extends Activity implements StartPageView{
     @Override
     public void openLoginPage () {
         Log.i(TAG, "Opening Login Page");
-        startActivity (new Intent(StartPage.this, LoginActivity.class));
-        finish();
+        startActivity (new Intent (StartPage.this, LoginActivity.class));
+        finish ();
 
     }
 
@@ -149,6 +166,13 @@ public class StartPage extends Activity implements StartPageView{
     @Override
     public void disableLoginPage () {
         openLoginPageFlag = false;
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
 }

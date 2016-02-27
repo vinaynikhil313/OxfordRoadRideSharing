@@ -48,9 +48,9 @@ public class EmailLoginPresenterImpl implements EmailLoginPresenter, OnEmailLogi
         view.writeToSharedPreferences (user);
         Log.i ("EMAIL PRESENTER", "UID = " + user.getId ());
         view.hideProgressDialog ();
-        if(user.getPreferences ().size () > 0)
+        //if(user.getPreferences ().size () > 0)
             view.openMainPage ();
-        else{}
+        //else{}
             //view.openPreferencesPage ();
     }
 }
