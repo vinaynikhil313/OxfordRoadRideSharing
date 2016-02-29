@@ -22,4 +22,8 @@ public class Constants {
     public static final int LOCATION_ZOOM_LEVEL = 18;
     public static final int REQUEST_CODE_LOCATION = 2;
 
+    public static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
+
+    public static final String PLACES_API_AUTOCOMPLETION = "https://maps.googleapis.com/maps/api/place/autocomplete/json";
+
 }

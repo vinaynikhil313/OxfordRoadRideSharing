@@ -1,8 +1,9 @@
 package com.vinay.oxfordroadridesharing.main.interactor;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.support.v4.app.Fragment;
 
-import com.google.android.gms.maps.model.LatLng;
 import com.vinay.oxfordroadridesharing.main.presenter.OnConnectionEstablishedListener;
 
 /**
@@ -12,8 +13,12 @@ public interface MainActivityFragmentInteractor {
 
     void establishConnection(Activity activity, OnConnectionEstablishedListener listener);
 
+    void requestLocationUpdates();
+
     void disconnectConnection();
 
-    String getPlaceId(LatLng latlng);
+    void showPlaceAutoComplete(Fragment fragment);
+
+    void destinationReceived(int resultCode, Intent data);
 
 }

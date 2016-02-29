@@ -1,8 +1,10 @@
 package com.vinay.oxfordroadridesharing.main.presenter;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.support.v4.app.Fragment;
 
-import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.location.places.Place;
 import com.vinay.oxfordroadridesharing.main.interactor.MainActivityFragmentInteractor;
 import com.vinay.oxfordroadridesharing.main.interactor.MainActivityFragmentInteractorImpl;
 import com.vinay.oxfordroadridesharing.main.view.MainActivityFragmentView;
@@ -26,7 +28,12 @@ public class MainActivityFragmentPresenterImpl implements MainActivityFragmentPr
 
     @Override
     public void connectToGoogleApi (Activity activity) {
-        interactor.establishConnection(activity, this);
+        interactor.establishConnection (activity, this);
+    }
+
+    @Override
+    public void requestLocationUpdates () {
+        interactor.requestLocationUpdates ();
     }
 
     @Override
@@ -35,13 +42,23 @@ public class MainActivityFragmentPresenterImpl implements MainActivityFragmentPr
     }
 
     @Override
-    public void onLocationDetected (LatLng latLng) {
-        view.moveToLocation (latLng);
+    public void chooseDestination (Fragment fragment) {
+        interactor.showPlaceAutoComplete (fragment);
     }
 
     @Override
-    public String getPlaceId (LatLng latLng) {
-        interactor.getPlaceId (latLng);
-        return null;
+    public void receivedDestination (int resultCode, Intent data) {
+        interactor.destinationReceived (resultCode, data);
+    }
+
+    @Override
+    public void onLocationDetected (Place place) {
+        view.moveSourceLocation (place);
+    }
+
+    @Override
+    public void onDestinationReceived (Place place) {
+        view.markDestinationLocation (place);
+        //view.createDialog ();
     }
 }

@@ -2,25 +2,29 @@ package com.vinay.oxfordroadridesharing.main.interactor;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
-import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.places.PlaceLikelihood;
+import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.PlaceLikelihoodBuffer;
 import com.google.android.gms.location.places.Places;
-import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.location.places.ui.PlaceAutocomplete;
+import com.vinay.oxfordroadridesharing.application.OxfordRoadRideSharingApplication;
 import com.vinay.oxfordroadridesharing.main.presenter.OnConnectionEstablishedListener;
 import com.vinay.oxfordroadridesharing.utils.Constants;
 import com.vinay.oxfordroadridesharing.utils.Utilities;
@@ -29,8 +33,6 @@ import com.vinay.oxfordroadridesharing.utils.Utilities;
  * Created by Vinay Nikhil Pabba on 27-02-2016.
  */
 public class MainActivityFragmentInteractorImpl implements MainActivityFragmentInteractor,
-        GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener,
         LocationListener,
         ActivityCompat.OnRequestPermissionsResultCallback {
 
@@ -57,27 +59,8 @@ public class MainActivityFragmentInteractorImpl implements MainActivityFragmentI
         this.mActivity = activity;
         this.listener = listener;
 
-        mGoogleApiClient = new GoogleApiClient.Builder (mActivity)
-                .addApi (LocationServices.API)
-                .addApi(Places.GEO_DATA_API)
-                .addApi (Places.PLACE_DETECTION_API)
-                .addConnectionCallbacks (this)
-                .addOnConnectionFailedListener (this)
-                .build ();
+        mGoogleApiClient = OxfordRoadRideSharingApplication.getGoogleApiHelper ().getGoogleApiClient ();
 
-        mGoogleApiClient.connect ();
-    }
-
-    @Override
-    public void disconnectConnection () {
-        if (mGoogleApiClient.isConnected ()) {
-            LocationServices.FusedLocationApi.removeLocationUpdates (mGoogleApiClient, this);
-            mGoogleApiClient.disconnect ();
-        }
-    }
-
-    @Override
-    public void onConnected (Bundle bundle) {
         Log.i (TAG, "Location Services Connected");
         if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M
                 && ActivityCompat.checkSelfPermission (mActivity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
@@ -90,26 +73,83 @@ public class MainActivityFragmentInteractorImpl implements MainActivityFragmentI
             Log.i (TAG, "Permissions already Exist or Version is not Marsh mellow");
             Location mLocation = LocationServices.FusedLocationApi.getLastLocation (mGoogleApiClient);
             if (mLocation != null)
-                listener.onLocationDetected (new LatLng (mLocation.getLatitude (), mLocation.getLongitude ()));
+                onLocationChanged (mLocation);
             LocationServices.FusedLocationApi.requestLocationUpdates (mGoogleApiClient, mLocationRequest, this);
         }
-
     }
 
     @Override
-    public void onConnectionSuspended (int i) {
-        mGoogleApiClient.connect ();
+    public void requestLocationUpdates () {
+
+        Log.i(TAG, "Request Location Updates is Connected = " + mGoogleApiClient.isConnected ());
+
+        if (mGoogleApiClient != null && mGoogleApiClient.isConnected ()) {
+            if (ActivityCompat.checkSelfPermission (mActivity, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                    && ActivityCompat.checkSelfPermission (mActivity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                LocationServices.FusedLocationApi.requestLocationUpdates (mGoogleApiClient, mLocationRequest, this);
+            }
+        }
     }
 
     @Override
-    public void onConnectionFailed (ConnectionResult connectionResult) {
-        Log.i (TAG, "Connection failed: ConnectionResult.getErrorCode() = "
-                + connectionResult.getErrorCode ());
+    public void disconnectConnection () {
+
+        Log.i(TAG, "Disconnect Connection is Connected = " + mGoogleApiClient.isConnected ());
+
+        if (mGoogleApiClient.isConnected ()) {
+            LocationServices.FusedLocationApi.removeLocationUpdates (mGoogleApiClient, this);
+        }
     }
 
     @Override
-    public void onLocationChanged (Location location) {
-        listener.onLocationDetected (new LatLng (location.getLatitude (), location.getLongitude ()));
+    public void showPlaceAutoComplete (Fragment fragment) {
+        try {
+            Intent intent =
+                    new PlaceAutocomplete.IntentBuilder (PlaceAutocomplete.MODE_OVERLAY)
+                            .build (mActivity);
+            fragment.startActivityForResult (intent, Constants.PLACE_AUTOCOMPLETE_REQUEST_CODE);
+        } catch (GooglePlayServicesRepairableException e) {
+            // TODO: Handle the error.
+        } catch (GooglePlayServicesNotAvailableException e) {
+            // TODO: Handle the error.
+        }
+    }
+
+    @Override
+    public void destinationReceived (int resultCode, Intent data) {
+        if (resultCode == mActivity.RESULT_OK) {
+            Place place = PlaceAutocomplete.getPlace (mActivity, data);
+            Log.i (TAG, "Place: " + place.getName ());
+            listener.onDestinationReceived (place);
+        } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
+            Status status = PlaceAutocomplete.getStatus (mActivity, data);
+            // TODO: Handle the error.
+            Log.i (TAG, status.getStatusMessage ());
+
+        } else if (resultCode == mActivity.RESULT_CANCELED) {
+            // The user canceled the operation.
+        } else {
+            Status status = PlaceAutocomplete.getStatus (mActivity, data);
+            Log.i (TAG, status.getStatusMessage ());
+        }
+    }
+
+    @Override
+    public void onLocationChanged (final Location location) {
+
+        if (ActivityCompat.checkSelfPermission (mActivity, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            PendingResult<PlaceLikelihoodBuffer> result = Places.PlaceDetectionApi
+                    .getCurrentPlace (mGoogleApiClient, null);
+            result.setResultCallback (new ResultCallback<PlaceLikelihoodBuffer> () {
+                @Override
+                public void onResult (PlaceLikelihoodBuffer likelyPlaces) {
+                    Log.i (TAG, likelyPlaces.get (0).getPlace ().toString ());
+                    listener.onLocationDetected (likelyPlaces.get (0).getPlace ());
+                    likelyPlaces.release ();
+                }
+            });
+        }
+
     }
 
     public void onRequestPermissionsResult (int requestCode, String[] permissions, int[] grantResults) {
@@ -123,7 +163,7 @@ public class MainActivityFragmentInteractorImpl implements MainActivityFragmentI
                 }
                 Location mLocation = LocationServices.FusedLocationApi.getLastLocation (mGoogleApiClient);
                 if (mLocation != null)
-                    listener.onLocationDetected (new LatLng (mLocation.getLatitude (), mLocation.getLongitude ()));
+                    onLocationChanged (mLocation);
                 Log.i (TAG, "Permission received!");
                 LocationServices.FusedLocationApi.requestLocationUpdates (mGoogleApiClient, mLocationRequest, this);
             } else {
@@ -132,21 +172,4 @@ public class MainActivityFragmentInteractorImpl implements MainActivityFragmentI
         }
     }
 
-    @Override
-    public String getPlaceId (LatLng latlng) {
-        PendingResult<PlaceLikelihoodBuffer> result = Places.PlaceDetectionApi
-                .getCurrentPlace(mGoogleApiClient, null);
-        result.setResultCallback(new ResultCallback<PlaceLikelihoodBuffer> () {
-            @Override
-            public void onResult(PlaceLikelihoodBuffer likelyPlaces) {
-                for (PlaceLikelihood placeLikelihood : likelyPlaces) {
-                    Log.i(TAG, String.format("Place '%s' has likelihood: %g",
-                            placeLikelihood.getPlace().getName(),
-                            placeLikelihood.getLikelihood()));
-                }
-                likelyPlaces.release();
-            }
-        });
-        return null;
-    }
 }
