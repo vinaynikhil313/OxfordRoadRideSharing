@@ -1,5 +1,7 @@
 package com.vinay.oxfordroadridesharing.main.view;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -21,25 +23,26 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
-import com.google.gson.Gson;
 import com.vinay.oxfordroadridesharing.R;
 import com.vinay.oxfordroadridesharing.main.presenter.MainActivityFragmentPresenter;
 import com.vinay.oxfordroadridesharing.main.presenter.MainActivityFragmentPresenterImpl;
-import com.vinay.oxfordroadridesharing.main.view.pojo.PlaceDetails;
 import com.vinay.oxfordroadridesharing.src_dstn.view.SrcDstnActivity;
 import com.vinay.oxfordroadridesharing.utils.Constants;
 import com.vinay.oxfordroadridesharing.utils.Utilities;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.List;
 
 /**
  * A placeholder fragment containing a simple view.
  */
 public class MainActivityFragment extends Fragment implements MainActivityFragmentView, OnPointsGeneratedListener {
+
+	public static final int MODE_DRIVE = 0;
+
+	public static final int MODE_SHARE = 1;
 
 	private final String TAG = Utilities.getTag(this);
 
@@ -48,15 +51,17 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
 	private MapView mMapView;
 	private GoogleMap mGoogleMap;
 
-	private MainActivity mMainActivity;
+	private Activity mActivity;
 
 	Button ride;
 
 	View view;
 
-	private int mRideMode;
+	private int mRideMode = 100;
 
-	private static Place mSourcePlace;
+	private final String[] MODES = {"Drive", "Share"};
+
+	private ProgressDialog mProgressDialog;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -65,18 +70,23 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
 
 		presenter = new MainActivityFragmentPresenterImpl(this);
 
-		mMainActivity = (MainActivity) getActivity();
+		mActivity = getActivity();
 
 		setupGoogleMap(savedInstanceState);
 
-		presenter.connectToGoogleApi(mMainActivity);
+		presenter.connectToGoogleApi(mActivity);
 
-		ride = (Button) mMainActivity.findViewById(R.id.rideButton);
+		mProgressDialog = new ProgressDialog(mActivity);
+		mProgressDialog.setMessage("Please Wait..");
+		mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+		mProgressDialog.setIndeterminate(true);
+
+		ride = (Button) mActivity.findViewById(R.id.rideButton);
 
 		ride.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				startActivityForResult(new Intent(getActivity(), SrcDstnActivity.class), Constants.PLACE_AUTOCOMPLETE_REQUEST_CODE);
+				createDialog();
 			}
 		});
 
@@ -89,7 +99,7 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
 		mMapView.onCreate(savedInstanceState);
 		mMapView.onResume();
 
-		MapsInitializer.initialize(mMainActivity.getApplicationContext());
+		MapsInitializer.initialize(mActivity.getApplicationContext());
 
 		mMapView.getMapAsync(new OnMapReadyCallback() {
 
@@ -108,6 +118,12 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
 						.build();
 
 				mGoogleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+				LatLngBounds latLngBounds = mGoogleMap.getProjection().getVisibleRegion()
+						.latLngBounds;
+
+				Log.i(TAG, "London Bounds = " + latLngBounds.toString());
+
 			}
 		});
 
@@ -141,49 +157,22 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
 	}
 
 	@Override
-	public void markDestinationLocation(Place place) {
-		Log.i(TAG, "Destination id = " + place.getId());
-
-		LatLng mLatLng = place.getLatLng();
-		MarkerOptions marker = new MarkerOptions()
-				.position(mLatLng)
-				.title(place.getName().toString())
-				.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker2_24x40));
-
-		mGoogleMap.addMarker(marker);
-		CameraPosition cameraPosition = new CameraPosition.Builder()
-				.target(mLatLng)
-				.zoom(Constants.LOCATION_ZOOM_LEVEL - 2)
-				.build();
-		mGoogleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-	}
-
-	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		Log.i(TAG, requestCode + " " + resultCode + " " + data.toString());
 
-		if(requestCode == Constants.PLACE_AUTOCOMPLETE_REQUEST_CODE) {
-			//presenter.receivedDestination (resultCode, data);
+		if(requestCode == Constants.PLACE_AUTOCOMPLETE_REQUEST_CODE
+				&& resultCode == Activity.RESULT_OK) {
 			Bundle mBundle = data.getExtras();
 			String mSrcId = mBundle.getString("src");
 			String mDstnId = mBundle.getString("dstn");
 
-			//PlaceDetails src = getPlaceDetails(mBundle.getString("src"));
-			//PlaceDetails dstn = getPlaceDetails(mBundle.getString("dstn"));
 			Log.i(TAG, mBundle.get("src").toString() + " " + mBundle.get("dstn").toString());
-			try {
-				new DirectionsFetcher(this, mSrcId, mDstnId).execute(new URL("http://www.facebook.com"));
-			} catch(MalformedURLException e) {
-				e.printStackTrace();
-			}
+			if(mRideMode == MODE_DRIVE)
+				presenter.getDirections(mSrcId, mDstnId);
+			else if (mRideMode == MODE_SHARE)
+				presenter.getRides(mSrcId, mDstnId);
 		}
-	}
-
-	private PlaceDetails getPlaceDetails(String json) {
-		Gson gson = new Gson();
-		PlaceDetails mPlaceDetails = gson.fromJson(json, PlaceDetails.class);
-		return mPlaceDetails;
 	}
 
 	@Override
@@ -200,8 +189,6 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
 
 		mGoogleMap.addMarker(marker);
 
-		mSourcePlace = place;
-
 		CameraPosition cameraPosition = new CameraPosition(mLatLng, Constants.LOCATION_ZOOM_LEVEL, 0, 0);
 		mGoogleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 	}
@@ -209,9 +196,9 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
 	@Override
 	public void createDialog() {
 
-		AlertDialog.Builder mAlertDialogBuilder = new AlertDialog.Builder(mMainActivity)
+		final AlertDialog.Builder mAlertDialogBuilder = new AlertDialog.Builder(mActivity)
 				.setTitle("Type of Ride")
-				.setSingleChoiceItems(new String[] {"Drive", "Share"}, 1, new DialogInterface.OnClickListener() {
+				.setSingleChoiceItems(MODES, 1, new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						Log.i(TAG, "Selected item is " + which);
@@ -221,23 +208,22 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
 				.setPositiveButton("Ride!", new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						if(mRideMode == 0) {
-						}
-						//presenter.chooseDestination (MainActivityFragment.this);
+						startActivityForResult(new Intent(getActivity(), SrcDstnActivity.class), Constants.PLACE_AUTOCOMPLETE_REQUEST_CODE);
 					}
 				})
 				.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						Log.i(TAG, "Cancel Pressed");
+						dialog.dismiss();
 					}
-				});
+				})
+				.setCancelable(false);
 
 		mAlertDialogBuilder.show();
 	}
 
 	@Override
-	public void drawPath(List<LatLng> points) {
+	public void drawPath(List<LatLng> points, LatLngBounds latLngBounds) {
 
 		Log.i(TAG, "Size = " + points.size());
 
@@ -261,7 +247,17 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
 		for(int i = 0; i < points.size(); i++) {
 			polyline.add(points.get(i));
 		}
-
+		mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(latLngBounds, 10));
 		mGoogleMap.addPolyline(polyline);
+	}
+
+	@Override
+	public void showProgressDialog() {
+		mProgressDialog.show();
+	}
+
+	@Override
+	public void hideProgressDialog() {
+		mProgressDialog.hide();
 	}
 }

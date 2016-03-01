@@ -13,6 +13,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.PlaceBuffer;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.gson.Gson;
 import com.vinay.oxfordroadridesharing.R;
 import com.vinay.oxfordroadridesharing.application.OxfordRoadRideSharingApplication;
@@ -54,8 +56,15 @@ public class SrcDstnActivity extends Activity implements SrcDstnView {
 
 		ride = (Button) findViewById(R.id.srcDstnChosen);
 
-		mPlaceArrayAdapter = new PlaceArrayAdapter(this, android.R.layout.simple_list_item_1, null, null);
-		mPlaceArrayAdapter.setGoogleApiClient(OxfordRoadRideSharingApplication.getGoogleApiHelper().getGoogleApiClient());
+		LatLngBounds.Builder mLatLngBoundsBuilder = new LatLngBounds.Builder();
+		mLatLngBoundsBuilder.include(new LatLng(-66.44310771413123,-63.2812225073576));
+		mLatLngBoundsBuilder.include(new LatLng(66.44310463221659,63.281262405216694));
+
+		mPlaceArrayAdapter = new PlaceArrayAdapter(this,
+				android.R.layout.simple_list_item_1,
+				mLatLngBoundsBuilder.build(),
+				null);
+		mPlaceArrayAdapter.setGoogleApiClient(mGoogleApiClient);
 
 		from.setAdapter(mPlaceArrayAdapter);
 		to.setAdapter(mPlaceArrayAdapter);

@@ -9,6 +9,6 @@ import java.util.List;
  */
 public interface OnPointsGeneratedListener {
 
-    void drawPath(List<LatLng> points);
+
 
 }
