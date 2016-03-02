@@ -1,6 +1,5 @@
 package com.vinay.oxfordroadridesharing.main.presenter;
 
-import com.google.android.gms.location.places.Place;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 
@@ -11,7 +10,7 @@ import java.util.List;
  */
 public interface OnResultGeneratedListener {
 
-	void onLocationDetected(Place place);
+	void onLocationDetected(LatLng latLng);
 
 	void onDirectionsGenerated(List<LatLng> points, LatLngBounds latLngBounds);
 

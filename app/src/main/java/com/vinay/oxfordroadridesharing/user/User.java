@@ -1,5 +1,8 @@
 package com.vinay.oxfordroadridesharing.user;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Vinay Nikhil Pabba on 17-01-2016. POJO for retrieving all the User related information
  * from Firebase
@@ -11,6 +14,7 @@ public class User {
 	private String profileImageURL;
 	private String provider;
 	private String uid;
+	private List<String> rides = new ArrayList<>();
 
 	public String getAccessToken() {
 		return accessToken;
@@ -58,5 +62,13 @@ public class User {
 
 	public void setUid(String uid) {
 		this.uid = uid;
+	}
+
+	public List<String> getRides() {
+		return rides;
+	}
+
+	public void setRides(List<String> rides) {
+		this.rides = rides;
 	}
 }

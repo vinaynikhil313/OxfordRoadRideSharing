@@ -2,12 +2,12 @@ package com.vinay.oxfordroadridesharing.main.presenter;
 
 import android.app.Activity;
 
-import com.google.android.gms.location.places.Place;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.vinay.oxfordroadridesharing.main.interactor.MainActivityFragmentInteractor;
 import com.vinay.oxfordroadridesharing.main.interactor.MainActivityFragmentInteractorImpl;
 import com.vinay.oxfordroadridesharing.main.view.MainActivityFragmentView;
+import com.vinay.oxfordroadridesharing.user.User;
 
 import java.util.List;
 
@@ -44,8 +44,8 @@ public class MainActivityFragmentPresenterImpl implements MainActivityFragmentPr
 	}
 
 	@Override
-	public void getDirections(String src, String dstn) {
-		interactor.fetchDirectionsFromApi(src, dstn);
+	public void getDirections(User user, String src, String dstn) {
+		interactor.fetchDirectionsFromApi(user, src, dstn);
 	}
 
 	@Override
@@ -54,8 +54,18 @@ public class MainActivityFragmentPresenterImpl implements MainActivityFragmentPr
 	}
 
 	@Override
-	public void onLocationDetected(Place place) {
-		view.moveSourceLocation(place);
+	public void startRide() {
+		interactor.startRide();
+	}
+
+	@Override
+	public void finishRide() {
+		interactor.finishRide();
+	}
+
+	@Override
+	public void onLocationDetected(LatLng latLng) {
+		view.moveSourceLocation(latLng);
 	}
 
 	@Override

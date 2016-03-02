@@ -15,10 +15,8 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.PlaceBuffer;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.gson.Gson;
 import com.vinay.oxfordroadridesharing.R;
 import com.vinay.oxfordroadridesharing.application.OxfordRoadRideSharingApplication;
-import com.vinay.oxfordroadridesharing.main.view.pojo.PlaceDetails;
 import com.vinay.oxfordroadridesharing.utils.Utilities;
 
 /**
@@ -110,20 +108,21 @@ public class SrcDstnActivity extends Activity implements SrcDstnView {
 				}
 				// Selecting the first object buffer.
 				final Place place = places.get(0);
-				PlaceDetails mPlaceDetails = new PlaceDetails(place.getId(), place.getName(), place.getAddress(), place.getLatLng());
+				//PlaceDetails mPlaceDetails = new PlaceDetails(place.getId(), place.getName(),
+						//place.getAddress(), place.getLatLng());
 				//mBundle.putSerializable(type, mPlaceDetails);
-				mBundle.putString(type, getJsonString(mPlaceDetails));
-				Log.i(TAG, type + " " + getJsonString(mPlaceDetails));
+				//mBundle.putString(type, getJsonString(mPlaceDetails));
+				//Log.i(TAG, type + " " + getJsonString(mPlaceDetails));
 				places.release();
 			}
 		};
 
 	}
 
-	public String getJsonString(PlaceDetails placeDetails){
+	/*public String getJsonString(PlaceDetails placeDetails){
 		Gson gson = new Gson();
 		String jsonString = gson.toJson(placeDetails);
 		return jsonString;
-	}
+	}*/
 
 }

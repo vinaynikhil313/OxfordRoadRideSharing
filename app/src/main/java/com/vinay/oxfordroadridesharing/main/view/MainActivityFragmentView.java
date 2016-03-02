@@ -1,6 +1,5 @@
 package com.vinay.oxfordroadridesharing.main.view;
 
-import com.google.android.gms.location.places.Place;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 
@@ -11,7 +10,7 @@ import java.util.List;
  */
 public interface MainActivityFragmentView {
 
-	void moveSourceLocation(Place place);
+	void moveSourceLocation(LatLng latLng);
 
 	void createDialog();
 

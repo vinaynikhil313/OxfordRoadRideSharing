@@ -18,7 +18,7 @@ public class Constants {
 
 	public static final double LONDON_LAT = 51.5072;
 	public static final double LONDON_LNG = - 0.1300;
-	public static final int LOCATION_ZOOM_LEVEL = 18;
+	public static final int LOCATION_ZOOM_LEVEL = 16;
 	public static final int REQUEST_CODE_LOCATION = 2;
 
 	public static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
