@@ -16,9 +16,10 @@ public class GoogleDirectionsApiHelper {
 
     private static AsyncHttpClient client = new AsyncHttpClient();
 
-    public static void get(RequestParams requestParams, AsyncHttpResponseHandler responseHandler) {
+    public static void get(String url, RequestParams requestParams, AsyncHttpResponseHandler
+			responseHandler) {
         Log.i (TAG, requestParams.toString());
-        client.get(Constants.DIRECTIONS_API, requestParams, responseHandler);
+        client.get(url, requestParams, responseHandler);
     }
 
     public static void post(RequestParams requestParams, AsyncHttpResponseHandler responseHandler){

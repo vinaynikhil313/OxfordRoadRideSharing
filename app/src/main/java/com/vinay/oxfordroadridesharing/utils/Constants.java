@@ -23,9 +23,12 @@ public class Constants {
 
 	public static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
 	public static final String DIRECTIONS_API = "https://maps.googleapis.com/maps/api/directions/json";
+	public static final String DISTANCE_API = "https://maps.googleapis.com/maps/api/distancematrix/json";
 	public static final String PLACE_ID_TEXT = "place_id:";
 	public static final String ORIGIN_TEXT = "origin";
+	public static final String ORIGINS_TEXT = "origins";
 	public static final String DESTINATION_TEXT = "destination";
+	public static final String DESTINATIONS_TEXT = "destinations";
 	public static final String KEY_TEXT = "key";
 	public static final String KEY_VALUE = "AIzaSyDTab5b4kFZdRR0mid-p8QqMXmktyCYAic";
 

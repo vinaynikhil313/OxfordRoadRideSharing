@@ -6,6 +6,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.vinay.oxfordroadridesharing.main.interactor.MainActivityFragmentInteractor;
 import com.vinay.oxfordroadridesharing.main.interactor.MainActivityFragmentInteractorImpl;
+import com.vinay.oxfordroadridesharing.main.interactor.SharingInteractor;
+import com.vinay.oxfordroadridesharing.main.interactor.SharingInteractorImpl;
 import com.vinay.oxfordroadridesharing.main.view.MainActivityFragmentView;
 import com.vinay.oxfordroadridesharing.user.User;
 
@@ -20,12 +22,11 @@ public class MainActivityFragmentPresenterImpl implements MainActivityFragmentPr
 	private MainActivityFragmentView view;
 
 	private MainActivityFragmentInteractor interactor;
+	private SharingInteractor mSharingInteractor;
 
 	public MainActivityFragmentPresenterImpl(MainActivityFragmentView view) {
-
 		this.view = view;
 		interactor = new MainActivityFragmentInteractorImpl();
-
 	}
 
 	@Override
@@ -51,6 +52,8 @@ public class MainActivityFragmentPresenterImpl implements MainActivityFragmentPr
 	@Override
 	public void getRides(String src, String dstn) {
 		view.showProgressDialog();
+		mSharingInteractor = new SharingInteractorImpl();
+		mSharingInteractor.getRides(src, dstn, this);
 	}
 
 	@Override
