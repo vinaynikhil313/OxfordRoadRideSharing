@@ -238,7 +238,7 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
 	}
 
 	@Override
-	public void drawPath(List<LatLng> points, LatLngBounds latLngBounds) {
+	public void drawPath(List<LatLng> points, List<LatLng> latLngBounds) {
 
 		Log.i(TAG, "Size = " + points.size());
 
@@ -262,7 +262,10 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
 		for(int i = 0; i < points.size(); i++) {
 			polyline.add(points.get(i));
 		}
-		mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(latLngBounds, 10));
+		LatLngBounds.Builder mBoundsBuilder = new LatLngBounds.Builder();
+		mBoundsBuilder.include(latLngBounds.get(0));
+		mBoundsBuilder.include(latLngBounds.get(1));
+		mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(mBoundsBuilder.build(), 10));
 		mGoogleMap.addPolyline(polyline);
 		hideProgressDialog();
 	}

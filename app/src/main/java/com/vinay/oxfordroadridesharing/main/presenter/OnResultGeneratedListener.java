@@ -1,7 +1,7 @@
 package com.vinay.oxfordroadridesharing.main.presenter;
 
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
+import com.vinay.oxfordroadridesharing.user.Ride;
 
 import java.util.List;
 
@@ -12,8 +12,8 @@ public interface OnResultGeneratedListener {
 
 	void onLocationDetected(LatLng latLng);
 
-	void onDirectionsGenerated(List<LatLng> points, LatLngBounds latLngBounds);
+	void onDirectionsGenerated(List<LatLng> points, List<LatLng> latLngBounds);
 
-	void onRidesGenerated();
+	void onRidesGenerated(List<Ride> matchedRides);
 
 }

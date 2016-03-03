@@ -1,7 +1,6 @@
 package com.vinay.oxfordroadridesharing.main.view;
 
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
 
 import java.util.List;
 
@@ -14,7 +13,7 @@ public interface MainActivityFragmentView {
 
 	void createDialog();
 
-	void drawPath(List<LatLng> points, LatLngBounds latLngBounds);
+	void drawPath(List<LatLng> points, List<LatLng> latLngBounds);
 
 	void showProgressDialog();
 

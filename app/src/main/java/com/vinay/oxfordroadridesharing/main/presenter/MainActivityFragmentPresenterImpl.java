@@ -3,12 +3,13 @@ package com.vinay.oxfordroadridesharing.main.presenter;
 import android.app.Activity;
 
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
-import com.vinay.oxfordroadridesharing.main.interactor.MainActivityFragmentInteractor;
-import com.vinay.oxfordroadridesharing.main.interactor.MainActivityFragmentInteractorImpl;
-import com.vinay.oxfordroadridesharing.main.interactor.SharingInteractor;
-import com.vinay.oxfordroadridesharing.main.interactor.SharingInteractorImpl;
+import com.google.maps.android.PolyUtil;
+import com.vinay.oxfordroadridesharing.main.interactor.drive.MainActivityFragmentInteractor;
+import com.vinay.oxfordroadridesharing.main.interactor.drive.MainActivityFragmentInteractorImpl;
+import com.vinay.oxfordroadridesharing.main.interactor.share.SharingInteractor;
+import com.vinay.oxfordroadridesharing.main.interactor.share.SharingInteractorImpl;
 import com.vinay.oxfordroadridesharing.main.view.MainActivityFragmentView;
+import com.vinay.oxfordroadridesharing.user.Ride;
 import com.vinay.oxfordroadridesharing.user.User;
 
 import java.util.List;
@@ -72,12 +73,15 @@ public class MainActivityFragmentPresenterImpl implements MainActivityFragmentPr
 	}
 
 	@Override
-	public void onDirectionsGenerated(List<LatLng> points, LatLngBounds latLngBounds) {
+	public void onDirectionsGenerated(List<LatLng> points, List<LatLng> latLngBounds) {
 		view.drawPath(points, latLngBounds);
 	}
 
 	@Override
-	public void onRidesGenerated() {
+	public void onRidesGenerated(List<Ride> matchedRides) {
 		view.hideProgressDialog();
+		if(matchedRides.size() > 0)
+			view.drawPath(PolyUtil.decode(matchedRides.get(0).getRoute()), PolyUtil.decode(matchedRides.get(0)
+					.getBounds()));
 	}
 }

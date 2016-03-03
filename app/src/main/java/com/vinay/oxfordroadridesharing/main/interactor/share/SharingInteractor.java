@@ -1,4 +1,4 @@
-package com.vinay.oxfordroadridesharing.main.interactor;
+package com.vinay.oxfordroadridesharing.main.interactor.share;
 
 import com.vinay.oxfordroadridesharing.main.presenter.OnResultGeneratedListener;
 

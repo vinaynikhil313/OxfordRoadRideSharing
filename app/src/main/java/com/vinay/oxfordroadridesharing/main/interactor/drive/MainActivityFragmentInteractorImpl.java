@@ -1,4 +1,4 @@
-package com.vinay.oxfordroadridesharing.main.interactor;
+package com.vinay.oxfordroadridesharing.main.interactor.drive;
 
 import android.Manifest;
 import android.app.Activity;
@@ -15,7 +15,6 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.maps.android.PolyUtil;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -30,6 +29,7 @@ import com.vinay.oxfordroadridesharing.utils.Utilities;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
@@ -50,6 +50,7 @@ public class MainActivityFragmentInteractorImpl implements MainActivityFragmentI
 	private User mUser;
 
 	private Ride mCurrentRide;
+	private String mRideId = "R003";
 
 	private Activity mActivity;
 
@@ -74,7 +75,6 @@ public class MainActivityFragmentInteractorImpl implements MainActivityFragmentI
 
 		mGoogleApiClient = OxfordRoadRideSharingApplication.getGoogleApiHelper().getGoogleApiClient();
 
-		Log.i(TAG, "Location Services Connected");
 		if(Build.VERSION.SDK_INT == Build.VERSION_CODES.M
 				&& ActivityCompat.checkSelfPermission(mActivity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
 				&& ActivityCompat.checkSelfPermission(mActivity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -86,8 +86,9 @@ public class MainActivityFragmentInteractorImpl implements MainActivityFragmentI
 			Log.i(TAG, "Permissions already Exist or Version is not Marsh mellow");
 			Location mLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
 			if(mLocation != null){
-				mCurrentLatLng = new LatLng(mLocation.getLatitude(), mLocation.getLongitude());
-				listener.onLocationDetected(mCurrentLatLng);
+				//mCurrentLatLng = new LatLng(mLocation.getLatitude(), mLocation.getLongitude());
+				//listener.onLocationDetected(mCurrentLatLng);
+				onLocationChanged(mLocation);
 			}
 			LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
 		}
@@ -135,32 +136,35 @@ public class MainActivityFragmentInteractorImpl implements MainActivityFragmentI
 				JSONObject mNorthEast = mRoute.getJSONObject("bounds").getJSONObject("northeast");
 				JSONObject mSouthWest = mRoute.getJSONObject("bounds").getJSONObject("southwest");
 
-				LatLngBounds.Builder mBounds = new LatLngBounds.Builder();
-				mBounds.include(new LatLng(mNorthEast.getDouble("lat"), mNorthEast.getDouble
+				List<LatLng> mBounds = new ArrayList<>();
+				mBounds.add(new LatLng(mNorthEast.getDouble("lat"), mNorthEast.getDouble
 						("lng")));
 
-				mBounds.include(new LatLng(mSouthWest.getDouble("lat"), mSouthWest.getDouble
+				mBounds.add(new LatLng(mSouthWest.getDouble("lat"), mSouthWest.getDouble
 						("lng")));
 
 				String mEncodedPoints = mRoute.getJSONObject("overview_polyline").getString
 						("points");
 
 				mCurrentRide = new Ride();
-				mCurrentRide.setId("R001");
+				mCurrentRide.setId(mRideId);
 				mCurrentRide.setDriverUid(mUser.getUid());
 				mCurrentRide.setActive(false);
-				if(mCurrentLatLng != null)
-					mCurrentRide.setCurrentLocation(mCurrentLatLng);
+				if(mCurrentLatLng != null) {
+					mCurrentRide.setCurrentLocationLat(mCurrentLatLng.latitude);
+					mCurrentRide.setCurrentLocationLng(mCurrentLatLng.longitude);
+				}
 				mCurrentRide.setRoute(mEncodedPoints);
+				mCurrentRide.setBounds(PolyUtil.encode(mBounds));
 
-				mUser.getRides().add("R001");
+				mUser.getRides().add(mRideId);
 
-				mFirebase.child("rides").child("R001").setValue(mCurrentRide);
+				mFirebase.child("rides").child(mRideId).setValue(mCurrentRide);
 				mFirebase.child("users").child(mUser.getUid()).setValue(mUser);
 
 				List<LatLng> mPoints = PolyUtil.decode(mEncodedPoints);
 				Log.i(TAG, "Size of Points = " + mPoints.size());
-				listener.onDirectionsGenerated(mPoints, mBounds.build());
+				listener.onDirectionsGenerated(mPoints, mBounds);
 			} catch(JSONException e) {
 				e.printStackTrace();
 			}
@@ -178,6 +182,7 @@ public class MainActivityFragmentInteractorImpl implements MainActivityFragmentI
 		Log.i(TAG, "Ride started in Interactor");
 		if(mCurrentRide != null){
 			mCurrentRide.setActive(true);
+			mFirebase.child("rides").child(mRideId).setValue(mCurrentRide);
 		}
 	}
 
@@ -186,6 +191,7 @@ public class MainActivityFragmentInteractorImpl implements MainActivityFragmentI
 		Log.i(TAG, "Ride finished in Interactor");
 		if(mCurrentRide != null){
 			mCurrentRide.setActive(false);
+			mFirebase.child("rides").child(mRideId).setValue(mCurrentRide);
 		}
 	}
 
@@ -193,10 +199,12 @@ public class MainActivityFragmentInteractorImpl implements MainActivityFragmentI
 	public void onLocationChanged(final Location location) {
 
 		mCurrentLatLng = new LatLng(location.getLatitude(), location.getLongitude());
+		Log.i(TAG, "in OnLocationChanged " + mCurrentLatLng.toString());
 		listener.onLocationDetected(mCurrentLatLng);
 
 		if(mCurrentRide != null && mCurrentRide.isActive()){
-			mCurrentRide.setCurrentLocation(mCurrentLatLng);
+			mCurrentRide.setCurrentLocationLat(mCurrentLatLng.latitude);
+			mCurrentRide.setCurrentLocationLng(mCurrentLatLng.longitude);
 			mFirebase.child("rides").child(mCurrentRide.getId()).setValue(mCurrentRide);
 		}
 

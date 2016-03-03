@@ -1,7 +1,5 @@
 package com.vinay.oxfordroadridesharing.user;
 
-import com.google.android.gms.maps.model.LatLng;
-
 /**
  * Created by Vinay Nikhil Pabba on 02-03-2016.
  */
@@ -10,8 +8,10 @@ public class Ride {
 	private String id;
 	private String driverUid;
 	private boolean active;
-	private LatLng currentLocation;
+	private double currentLocationLat;
+	private double currentLocationLng;
 	private String route;
+	private String bounds;
 
 	public String getId() {
 		return id;
@@ -37,12 +37,20 @@ public class Ride {
 		this.active = active;
 	}
 
-	public LatLng getCurrentLocation() {
-		return currentLocation;
+	public double getCurrentLocationLat() {
+		return currentLocationLat;
 	}
 
-	public void setCurrentLocation(LatLng currentLocation) {
-		this.currentLocation = currentLocation;
+	public void setCurrentLocationLat(double currentLocationLat) {
+		this.currentLocationLat = currentLocationLat;
+	}
+
+	public double getCurrentLocationLng() {
+		return currentLocationLng;
+	}
+
+	public void setCurrentLocationLng(double currentLocationLng) {
+		this.currentLocationLng = currentLocationLng;
 	}
 
 	public String getRoute() {
@@ -51,5 +59,13 @@ public class Ride {
 
 	public void setRoute(String route) {
 		this.route = route;
+	}
+
+	public String getBounds() {
+		return bounds;
+	}
+
+	public void setBounds(String bounds) {
+		this.bounds = bounds;
 	}
 }

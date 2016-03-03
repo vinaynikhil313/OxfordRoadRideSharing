@@ -40,25 +40,27 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/main/view/MainActivityFragment.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="185" column="46" selection-start-line="185" selection-start-column="46" selection-end-line="185" selection-end-column="46" />
+              <caret line="171" column="0" selection-start-line="171" selection-start-column="0" selection-end-line="171" selection-end-column="0" />
               <folding>
-                <element signature="e#3273#3376#0" expanded="true" />
-                <element signature="e#3375#3376#0" expanded="true" />
                 <element signature="method#setupGoogleMap#0;class#MainActivityFragment#0" expanded="false" />
-                <element signature="e#3813#4437#0" expanded="true" />
-                <element signature="e#4436#4437#0" expanded="true" />
                 <element signature="method#onPause#0;class#MainActivityFragment#0" expanded="false" />
                 <element signature="method#onResume#0;class#MainActivityFragment#0" expanded="false" />
                 <element signature="method#onDestroy#0;class#MainActivityFragment#0" expanded="false" />
                 <element signature="method#onLowMemory#0;class#MainActivityFragment#0" expanded="false" />
                 <element signature="method#moveSourceLocation#0;class#MainActivityFragment#0" expanded="false" />
                 <element signature="method#createDialog#0;class#MainActivityFragment#0" expanded="false" />
-                <element signature="e#6602#6803#0" expanded="true" />
-                <element signature="e#6802#6803#0" expanded="true" />
-                <element signature="e#7124#7277#0" expanded="true" />
-                <element signature="e#7276#7277#0" expanded="true" />
                 <element signature="method#getUser#0;class#MainActivityFragment#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SharingInteractor.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/main/interactor/share/SharingInteractor.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="9" column="43" selection-start-line="9" selection-start-column="43" selection-end-line="9" selection-end-column="77" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -67,63 +69,46 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/main/presenter/MainActivityFragmentPresenterImpl.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="55" column="51" selection-start-line="55" selection-start-column="51" selection-end-line="55" selection-end-column="51" />
+              <caret line="82" column="0" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MainActivityFragmentView.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/main/view/MainActivityFragmentView.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="15" column="51" selection-start-line="15" selection-start-column="51" selection-end-line="15" selection-end-column="51" />
               <folding>
-                <element signature="e#1311#1312#0" expanded="true" />
-                <element signature="e#1353#1354#0" expanded="true" />
-                <element signature="e#1808#1809#0" expanded="true" />
-                <element signature="e#1837#1838#0" expanded="true" />
-                <element signature="e#1877#1878#0" expanded="true" />
-                <element signature="e#1907#1908#0" expanded="true" />
-                <element signature="e#1968#1969#0" expanded="true" />
-                <element signature="e#2006#2007#0" expanded="true" />
-                <element signature="e#2191#2192#0" expanded="true" />
-                <element signature="e#2223#2224#0" expanded="true" />
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Constants.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/utils/Constants.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="30" column="43" selection-start-line="30" selection-start-column="43" selection-end-line="30" selection-end-column="43" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MainActivityFragmentInteractor.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/main/interactor/MainActivityFragmentInteractor.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="MainActivityFragmentInteractorImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/main/interactor/MainActivityFragmentInteractorImpl.java">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/main/interactor/drive/MainActivityFragmentInteractorImpl.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="126" column="64" selection-start-line="126" selection-start-column="64" selection-end-line="126" selection-end-column="64" />
+              <caret line="166" column="63" selection-start-line="166" selection-start-column="63" selection-end-line="166" selection-end-column="63" />
               <folding>
                 <element signature="method#MainActivityFragmentInteractorImpl#0;class#MainActivityFragmentInteractorImpl#0" expanded="false" />
+                <element signature="method#establishConnection#0;class#MainActivityFragmentInteractorImpl#0" expanded="false" />
                 <element signature="method#requestLocationUpdates#0;class#MainActivityFragmentInteractorImpl#0" expanded="false" />
                 <element signature="method#disconnectConnection#0;class#MainActivityFragmentInteractorImpl#0" expanded="false" />
-                <element signature="class#4838:6470" expanded="false" />
+                <element signature="method#fetchDirectionsFromApi#0;class#MainActivityFragmentInteractorImpl#0" expanded="false" />
+                <element signature="method#onFailure#0;class#4844:6587" expanded="false" />
                 <element signature="method#startRide#0;class#MainActivityFragmentInteractorImpl#0" expanded="false" />
-                <element signature="method#onLocationChanged#0;class#MainActivityFragmentInteractorImpl#0" expanded="false" />
+                <element signature="method#finishRide#0;class#MainActivityFragmentInteractorImpl#0" expanded="false" />
                 <element signature="method#onRequestPermissionsResult#0;class#MainActivityFragmentInteractorImpl#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="User.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/user/User.java">
+      <file leaf-file-name="OnResultGeneratedListener.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/main/presenter/OnResultGeneratedListener.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="16" column="49" selection-start-line="16" selection-start-column="49" selection-end-line="16" selection-end-column="49" />
@@ -138,32 +123,44 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/user/Ride.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="23" column="32" selection-start-line="23" selection-start-column="32" selection-end-line="23" selection-end-column="32" />
+              <caret line="63" column="31" selection-start-line="63" selection-start-column="31" selection-end-line="63" selection-end-column="31" />
               <folding>
-                <element signature="e#427#428#0" expanded="true" />
-                <element signature="e#450#451#0" expanded="true" />
+                <element signature="e#339#340#0" expanded="true" />
+                <element signature="e#355#356#0" expanded="true" />
+                <element signature="e#388#389#0" expanded="true" />
+                <element signature="e#407#408#0" expanded="true" />
+                <element signature="e#704#705#0" expanded="true" />
+                <element signature="e#736#737#0" expanded="true" />
+                <element signature="e#1129#1130#0" expanded="true" />
+                <element signature="e#1154#1155#0" expanded="true" />
+                <element signature="e#1204#1205#0" expanded="true" />
+                <element signature="e#1245#1246#0" expanded="true" />
+                <element signature="e#1272#1273#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="SharingInteractorImpl.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/main/interactor/SharingInteractorImpl.java">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/main/interactor/share/SharingInteractorImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.69588554">
-              <caret line="77" column="53" selection-start-line="77" selection-start-column="53" selection-end-line="77" selection-end-column="53" />
+            <state vertical-scroll-proportion="0.64480877">
+              <caret line="134" column="17" selection-start-line="134" selection-start-column="17" selection-end-line="134" selection-end-column="17" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="method#getRides#0;class#SharingInteractorImpl#0" expanded="false" />
+                <element signature="method#onResult#0;class#SharingInteractorImpl#0" expanded="false" />
+                <element signature="method#onDataChange#0;class#SharingInteractorImpl#0" expanded="false" />
+                <element signature="method#onCancelled#0;class#SharingInteractorImpl#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GoogleDirectionsApiHelper.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/utils/GoogleDirectionsApiHelper.java">
+      <file leaf-file-name="text.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/main/interactor/text.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="21" column="22" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
+            <state vertical-scroll-proportion="3.9230769">
+              <caret line="78" column="23" selection-start-line="78" selection-start-column="23" selection-end-line="78" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -683,9 +680,9 @@
                 <option name="name" value="prepareComGoogleAndroidGmsPlayServicesMaps840Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Prepare com.google.maps.android:android-maps-utils:0.4.2" />
+                <option name="description" value="Prepare com.google.maps.android:android-maps-utils:0.4.3" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
-                <option name="name" value="prepareComGoogleMapsAndroidAndroidMapsUtils042Library" />
+                <option name="name" value="prepareComGoogleMapsAndroidAndroidMapsUtils043Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
@@ -1321,9 +1318,9 @@
                 <option name="name" value="prepareComGoogleAndroidGmsPlayServicesMaps840Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Prepare com.google.maps.android:android-maps-utils:0.4.2" />
+                <option name="description" value="Prepare com.google.maps.android:android-maps-utils:0.4.3" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
-                <option name="name" value="prepareComGoogleMapsAndroidAndroidMapsUtils042Library" />
+                <option name="name" value="prepareComGoogleMapsAndroidAndroidMapsUtils043Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
@@ -1755,7 +1752,7 @@
                             <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.facebook.android/facebook-android-sdk/4.6.0/67726a31ed265d73e4de3970339c444ef3878a11/facebook-android-sdk-4.6.0.aar" />
                             <option value="D:/Android-SDK/extras/google/m2repository/com/google/android/gms/play-services-location/8.4.0/play-services-location-8.4.0.aar" />
                             <option value="D:/Android-SDK/extras/google/m2repository/com/google/android/gms/play-services-maps/8.4.0/play-services-maps-8.4.0.aar" />
-                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.maps.android/android-maps-utils/0.4.2/3d54b9054c208bc3eb73c6aa863a7b9c6cd0d36e/android-maps-utils-0.4.2.aar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.maps.android/android-maps-utils/0.4.3/eef4fa83ca9d53477b48c8e316f5906dbef46e37/android-maps-utils-0.4.3.aar" />
                             <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.loopj.android/android-async-http/1.4.9/386a4339ffe52d5d63e80f9bed8d2b1d1a418249/android-async-http-1.4.9.jar" />
                             <option value="D:/Android-SDK/extras/android/m2repository/com/android/support/support-v4/23.1.1/support-v4-23.1.1.aar" />
                             <option value="D:/Android-SDK/extras/android/m2repository/com/android/support/recyclerview-v7/23.1.1/recyclerview-v7-23.1.1.aar" />
@@ -1909,13 +1906,11 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/main/location/presenter/MainActivityFragmentPresenter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/main/location/view/MainActivityFragmentView.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/main/location/presenter/MainActivityFragmentPresenterImpl.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/main/location/view/MainActivityFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/src_dstn/view/ScrDstnActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/utils/GoogleApiHelper.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/src_dstn.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/src_dstn/view/PlacesAutoCompleteAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/src_dstn/view/PlacesResult.java" />
@@ -1943,23 +1938,25 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/login_content_main.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/content_main.xml" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/user/Ride.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/user/User.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/main/view/MainActivityFragmentView.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/main/presenter/OnResultGeneratedListener.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/main/presenter/MainActivityFragmentPresenter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/main/view/OnExternalButtonClickedListener.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/main/view/ButtonsFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/main/view/MainActivityFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/main/interactor/FirebaseResponseHandler.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/main/interactor/SharingInteractor.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/main/interactor/MainActivityFragmentInteractor.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/main/presenter/MainActivityFragmentPresenterImpl.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/utils/GoogleDirectionsApiHelper.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/utils/Constants.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/main/interactor/MainActivityFragmentInteractorImpl.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/main/interactor/text.json" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/utils/GoogleApiHelper.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/user/Ride.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/main/interactor/MainActivityFragmentInteractorImpl.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/main/view/MainActivityFragmentView.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/main/view/MainActivityFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/main/presenter/OnResultGeneratedListener.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/main/presenter/MainActivityFragmentPresenterImpl.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/main/interactor/SharingInteractorImpl.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/main/interactor/share/SharingInteractorImpl.java" />
       </list>
     </option>
   </component>
@@ -1995,9 +1992,7 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane" />
-      <pane id="PackagesPane" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -2192,17 +2187,71 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="application" />
+              <option name="myItemId" value="main" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="interactor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="share" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="OxfordRoadRideSharing" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="oxfordroadridesharing" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="interactor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="drive" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="OxfordRoadRideSharing" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="manifests" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidManifestsGroupNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
       <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="android.project.structure.last.selected" value="app" />
     <property name="android.project.structure.proportion" value="0.15" />
@@ -2214,7 +2263,7 @@
     <property name="ExportApk.ApkPath" value="E:\AndroidApps\OxfordRoadRideSharing\app" />
     <property name="ExportApk.Flavors" value="" />
     <property name="ExportApk.BuildType" value="debug" />
-    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="" />
+    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="emulator-5554" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="Nexus_5_API_21" />
     <property name="FullScreen" value="false" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/res/drawable" />
@@ -2406,7 +2455,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -2418,7 +2467,6 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6882453" sideWeight="0.48487142" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32879046" sideWeight="0.49016643" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32879046" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -2427,6 +2475,7 @@
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19667171" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32879046" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24962178" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
@@ -2438,7 +2487,7 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32879046" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -2486,7 +2535,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="10" />
+      <option name="time" value="11" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -2572,7 +2621,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="5" column="28" selection-start-line="5" selection-start-column="28" selection-end-line="5" selection-end-column="28" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2580,7 +2628,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.6386404">
           <caret line="35" column="20" selection-start-line="35" selection-start-column="11" selection-end-line="35" selection-end-column="20" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2588,7 +2635,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-3.4973166">
           <caret line="38" column="22" selection-start-line="38" selection-start-column="22" selection-end-line="38" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2635,7 +2681,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.69924814">
           <caret line="36" column="47" selection-start-line="36" selection-start-column="47" selection-end-line="36" selection-end-column="47" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2643,7 +2688,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.25375938">
           <caret line="30" column="27" selection-start-line="30" selection-start-column="27" selection-end-line="30" selection-end-column="27" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2651,7 +2695,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.38157895">
           <caret line="29" column="16" selection-start-line="29" selection-start-column="16" selection-end-line="29" selection-end-column="16" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2659,7 +2702,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-4.0263157">
           <caret line="14" column="17" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2675,10 +2717,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.85330945">
           <caret line="46" column="11" selection-start-line="46" selection-start-column="11" selection-end-line="46" selection-end-column="11" />
-          <folding>
-            <element signature="e#1824#1825#0" expanded="false" />
-            <element signature="e#1862#1863#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2694,7 +2732,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="31" column="77" selection-start-line="31" selection-start-column="77" selection-end-line="31" selection-end-column="77" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2702,7 +2739,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="75" column="49" selection-start-line="75" selection-start-column="49" selection-end-line="75" selection-end-column="49" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2710,7 +2746,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="28" column="64" selection-start-line="28" selection-start-column="64" selection-end-line="28" selection-end-column="64" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2718,7 +2753,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="9" column="38" selection-start-line="9" selection-start-column="38" selection-end-line="9" selection-end-column="38" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2769,27 +2803,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="43" column="61" selection-start-line="43" selection-start-column="61" selection-end-line="43" selection-end-column="61" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/main/view/MainActivityFragmentView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="12" column="41" selection-start-line="12" selection-start-column="41" selection-end-line="12" selection-end-column="41" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/main/presenter/OnResultGeneratedListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="12" column="28" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="41" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2797,9 +2810,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="23" column="22" selection-start-line="23" selection-start-column="22" selection-end-line="23" selection-end-column="22" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2807,7 +2817,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="9" column="23" selection-start-line="9" selection-start-column="23" selection-end-line="9" selection-end-column="23" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2821,80 +2830,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/main/interactor/FirebaseResponseHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="12" column="57" selection-start-line="12" selection-start-column="57" selection-end-line="12" selection-end-column="57" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/main/interactor/SharingInteractor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="9" column="43" selection-start-line="9" selection-start-column="43" selection-end-line="9" selection-end-column="77" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/main/interactor/MainActivityFragmentInteractor.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/main/interactor/drive/MainActivityFragmentInteractor.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/main/presenter/MainActivityFragmentPresenterImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="55" column="51" selection-start-line="55" selection-start-column="51" selection-end-line="55" selection-end-column="51" />
-          <folding>
-            <element signature="e#1311#1312#0" expanded="true" />
-            <element signature="e#1353#1354#0" expanded="true" />
-            <element signature="e#1808#1809#0" expanded="true" />
-            <element signature="e#1837#1838#0" expanded="true" />
-            <element signature="e#1877#1878#0" expanded="true" />
-            <element signature="e#1907#1908#0" expanded="true" />
-            <element signature="e#1968#1969#0" expanded="true" />
-            <element signature="e#2006#2007#0" expanded="true" />
-            <element signature="e#2191#2192#0" expanded="true" />
-            <element signature="e#2223#2224#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/main/view/MainActivityFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="185" column="46" selection-start-line="185" selection-start-column="46" selection-end-line="185" selection-end-column="46" />
-          <folding>
-            <element signature="e#3273#3376#0" expanded="true" />
-            <element signature="e#3375#3376#0" expanded="true" />
-            <element signature="method#setupGoogleMap#0;class#MainActivityFragment#0" expanded="false" />
-            <element signature="e#3813#4437#0" expanded="true" />
-            <element signature="e#4436#4437#0" expanded="true" />
-            <element signature="method#onPause#0;class#MainActivityFragment#0" expanded="false" />
-            <element signature="method#onResume#0;class#MainActivityFragment#0" expanded="false" />
-            <element signature="method#onDestroy#0;class#MainActivityFragment#0" expanded="false" />
-            <element signature="method#onLowMemory#0;class#MainActivityFragment#0" expanded="false" />
-            <element signature="method#moveSourceLocation#0;class#MainActivityFragment#0" expanded="false" />
-            <element signature="method#createDialog#0;class#MainActivityFragment#0" expanded="false" />
-            <element signature="e#6602#6803#0" expanded="true" />
-            <element signature="e#6802#6803#0" expanded="true" />
-            <element signature="e#7124#7277#0" expanded="true" />
-            <element signature="e#7276#7277#0" expanded="true" />
-            <element signature="method#getUser#0;class#MainActivityFragment#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/utils/GoogleApiHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.30053666">
-          <caret line="60" column="51" selection-start-line="60" selection-start-column="51" selection-end-line="60" selection-end-column="51" />
           <folding />
         </state>
       </provider>
@@ -2903,22 +2842,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.8175313">
           <caret line="44" column="4" selection-start-line="44" selection-start-column="4" selection-end-line="44" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/utils/GoogleDirectionsApiHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="21" column="22" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/utils/Constants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="30" column="43" selection-start-line="30" selection-start-column="43" selection-end-line="30" selection-end-column="43" />
           <folding />
         </state>
       </provider>
@@ -2933,47 +2856,138 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/user/Ride.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/utils/Constants.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="23" column="32" selection-start-line="23" selection-start-column="32" selection-end-line="23" selection-end-column="32" />
-          <folding>
-            <element signature="e#427#428#0" expanded="true" />
-            <element signature="e#450#451#0" expanded="true" />
-          </folding>
+          <caret line="32" column="60" selection-start-line="32" selection-start-column="60" selection-end-line="32" selection-end-column="60" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/utils/GoogleDirectionsApiHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="21" column="22" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/utils/GoogleApiHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="39" column="42" selection-start-line="39" selection-start-column="42" selection-end-line="39" selection-end-column="42" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/main/interactor/text.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.15947467">
-          <caret line="17" column="23" selection-start-line="17" selection-start-column="23" selection-end-line="17" selection-end-column="23" />
+        <state vertical-scroll-proportion="3.9230769">
+          <caret line="78" column="23" selection-start-line="78" selection-start-column="23" selection-end-line="78" selection-end-column="23" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/main/interactor/MainActivityFragmentInteractorImpl.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/user/Ride.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="126" column="64" selection-start-line="126" selection-start-column="64" selection-end-line="126" selection-end-column="64" />
+          <caret line="63" column="31" selection-start-line="63" selection-start-column="31" selection-end-line="63" selection-end-column="31" />
+          <folding>
+            <element signature="e#339#340#0" expanded="true" />
+            <element signature="e#355#356#0" expanded="true" />
+            <element signature="e#388#389#0" expanded="true" />
+            <element signature="e#407#408#0" expanded="true" />
+            <element signature="e#704#705#0" expanded="true" />
+            <element signature="e#736#737#0" expanded="true" />
+            <element signature="e#1129#1130#0" expanded="true" />
+            <element signature="e#1154#1155#0" expanded="true" />
+            <element signature="e#1204#1205#0" expanded="true" />
+            <element signature="e#1245#1246#0" expanded="true" />
+            <element signature="e#1272#1273#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/main/interactor/drive/MainActivityFragmentInteractorImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="166" column="63" selection-start-line="166" selection-start-column="63" selection-end-line="166" selection-end-column="63" />
           <folding>
             <element signature="method#MainActivityFragmentInteractorImpl#0;class#MainActivityFragmentInteractorImpl#0" expanded="false" />
+            <element signature="method#establishConnection#0;class#MainActivityFragmentInteractorImpl#0" expanded="false" />
             <element signature="method#requestLocationUpdates#0;class#MainActivityFragmentInteractorImpl#0" expanded="false" />
             <element signature="method#disconnectConnection#0;class#MainActivityFragmentInteractorImpl#0" expanded="false" />
-            <element signature="class#4838:6470" expanded="false" />
+            <element signature="method#fetchDirectionsFromApi#0;class#MainActivityFragmentInteractorImpl#0" expanded="false" />
+            <element signature="method#onFailure#0;class#4844:6587" expanded="false" />
             <element signature="method#startRide#0;class#MainActivityFragmentInteractorImpl#0" expanded="false" />
-            <element signature="method#onLocationChanged#0;class#MainActivityFragmentInteractorImpl#0" expanded="false" />
+            <element signature="method#finishRide#0;class#MainActivityFragmentInteractorImpl#0" expanded="false" />
             <element signature="method#onRequestPermissionsResult#0;class#MainActivityFragmentInteractorImpl#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/main/interactor/SharingInteractorImpl.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/main/view/MainActivityFragmentView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.69588554">
-          <caret line="77" column="53" selection-start-line="77" selection-start-column="53" selection-end-line="77" selection-end-column="53" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="15" column="51" selection-start-line="15" selection-start-column="51" selection-end-line="15" selection-end-column="51" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/main/interactor/share/SharingInteractor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="9" column="43" selection-start-line="9" selection-start-column="43" selection-end-line="9" selection-end-column="77" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/main/presenter/OnResultGeneratedListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="16" column="49" selection-start-line="16" selection-start-column="49" selection-end-line="16" selection-end-column="49" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/main/presenter/MainActivityFragmentPresenterImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="82" column="0" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/main/view/MainActivityFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="171" column="0" selection-start-line="171" selection-start-column="0" selection-end-line="171" selection-end-column="0" />
+          <folding>
+            <element signature="method#setupGoogleMap#0;class#MainActivityFragment#0" expanded="false" />
+            <element signature="method#onPause#0;class#MainActivityFragment#0" expanded="false" />
+            <element signature="method#onResume#0;class#MainActivityFragment#0" expanded="false" />
+            <element signature="method#onDestroy#0;class#MainActivityFragment#0" expanded="false" />
+            <element signature="method#onLowMemory#0;class#MainActivityFragment#0" expanded="false" />
+            <element signature="method#moveSourceLocation#0;class#MainActivityFragment#0" expanded="false" />
+            <element signature="method#createDialog#0;class#MainActivityFragment#0" expanded="false" />
+            <element signature="method#getUser#0;class#MainActivityFragment#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vinay/oxfordroadridesharing/main/interactor/share/SharingInteractorImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.64480877">
+          <caret line="134" column="17" selection-start-line="134" selection-start-column="17" selection-end-line="134" selection-end-column="17" />
+          <folding>
+            <element signature="method#getRides#0;class#SharingInteractorImpl#0" expanded="false" />
+            <element signature="method#onResult#0;class#SharingInteractorImpl#0" expanded="false" />
+            <element signature="method#onDataChange#0;class#SharingInteractorImpl#0" expanded="false" />
+            <element signature="method#onCancelled#0;class#SharingInteractorImpl#0" expanded="false" />
           </folding>
         </state>
       </provider>

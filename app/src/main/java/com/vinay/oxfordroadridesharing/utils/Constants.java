@@ -29,6 +29,8 @@ public class Constants {
 	public static final String ORIGINS_TEXT = "origins";
 	public static final String DESTINATION_TEXT = "destination";
 	public static final String DESTINATIONS_TEXT = "destinations";
+	public static final String DEPARTURE_TIME_TEXT = "departure_time";
+	public static final String TRAFFIC_TEXT = "traffic_model";
 	public static final String KEY_TEXT = "key";
 	public static final String KEY_VALUE = "AIzaSyDTab5b4kFZdRR0mid-p8QqMXmktyCYAic";
 

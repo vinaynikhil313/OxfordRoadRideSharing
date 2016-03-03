@@ -1,4 +1,4 @@
-package com.vinay.oxfordroadridesharing.main.interactor;
+package com.vinay.oxfordroadridesharing.main.interactor.drive;
 
 import android.app.Activity;
 
