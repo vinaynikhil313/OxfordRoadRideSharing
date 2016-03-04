@@ -12,19 +12,23 @@ import com.loopj.android.http.RequestParams;
 
 public class GoogleDirectionsApiHelper {
 
-    private final static String TAG = "DirectionsApiHelper";
+	private final static String TAG = "DirectionsApiHelper";
 
-    private static AsyncHttpClient client = new AsyncHttpClient();
+	private static AsyncHttpClient client = new AsyncHttpClient();
 
-    public static void get(String url, RequestParams requestParams, AsyncHttpResponseHandler
+	public static void get(String url, RequestParams requestParams, AsyncHttpResponseHandler
 			responseHandler) {
-        Log.i (TAG, requestParams.toString());
-        client.get(url, requestParams, responseHandler);
-    }
+		Log.i(TAG, requestParams.toString());
+		client.get(getBaseUrl(url), requestParams, responseHandler);
+	}
 
-    public static void post(RequestParams requestParams, AsyncHttpResponseHandler responseHandler){
-        Log.i(TAG, requestParams.toString ());
-        client.post (Constants.DIRECTIONS_API, requestParams, responseHandler);
-    }
+	public static void post(RequestParams requestParams, AsyncHttpResponseHandler responseHandler) {
+		Log.i(TAG, requestParams.toString());
+		client.post(Constants.DIRECTIONS_API, requestParams, responseHandler);
+	}
+
+	private static String getBaseUrl(String url) {
+		return Constants.SERVER_ADDRESS + url;
+	}
 
 }

@@ -50,7 +50,7 @@ public class MainActivityFragmentInteractorImpl implements MainActivityFragmentI
 	private User mUser;
 
 	private Ride mCurrentRide;
-	private String mRideId = "R003";
+	private String mRideId = "R002";
 
 	private Activity mActivity;
 
@@ -125,7 +125,7 @@ public class MainActivityFragmentInteractorImpl implements MainActivityFragmentI
 		mRequestParams.put(Constants.DESTINATION_TEXT, Constants.PLACE_ID_TEXT + dstn);
 		mRequestParams.put(Constants.KEY_TEXT, Constants.KEY_VALUE);
 
-		GoogleDirectionsApiHelper.get(Constants.DIRECTIONS_API, mRequestParams, responseHandler);
+		GoogleDirectionsApiHelper.get("directions", mRequestParams, responseHandler);
 	}
 
 	private JsonHttpResponseHandler responseHandler = new JsonHttpResponseHandler() {

@@ -110,7 +110,7 @@ public class SharingInteractorImpl implements SharingInteractor, ValueEventListe
 		mRequestParams.put(Constants.TRAFFIC_TEXT, "pessimistic");
 		mRequestParams.put(Constants.KEY_TEXT, Constants.KEY_VALUE);
 
-		GoogleDirectionsApiHelper.get(Constants.DISTANCE_API, mRequestParams, responseHandler);
+		GoogleDirectionsApiHelper.get("distances", mRequestParams, responseHandler);
 	}
 
 	private JsonHttpResponseHandler responseHandler = new JsonHttpResponseHandler(){

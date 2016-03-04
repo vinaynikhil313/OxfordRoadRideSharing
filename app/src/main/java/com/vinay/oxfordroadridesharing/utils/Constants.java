@@ -33,5 +33,7 @@ public class Constants {
 	public static final String TRAFFIC_TEXT = "traffic_model";
 	public static final String KEY_TEXT = "key";
 	public static final String KEY_VALUE = "AIzaSyDTab5b4kFZdRR0mid-p8QqMXmktyCYAic";
+	public static final String SERVER_ADDRESS = "http://ec2-52-90-110-157.compute-1.amazonaws.com:8080/OxfordRoadRideSharingServer/";
+
 
 }
