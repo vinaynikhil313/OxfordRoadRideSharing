@@ -3,6 +3,7 @@ package com.vinay.oxfordroadridesharing.src_dstn.view;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,13 +17,14 @@ import com.google.android.gms.location.places.PlaceBuffer;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.vinay.oxfordroadridesharing.R;
-import com.vinay.oxfordroadridesharing.application.OxfordRoadRideSharingApplication;
+import com.vinay.oxfordroadridesharing.application.ORRSApp;
+import com.vinay.oxfordroadridesharing.utils.Constants;
 import com.vinay.oxfordroadridesharing.utils.Utilities;
 
 /**
  * Created by Vinay Nikhil Pabba on 28-02-2016.
  */
-public class SrcDstnActivity extends Activity implements SrcDstnView {
+public class SrcDstnActivity extends AppCompatActivity implements SrcDstnView {
 
 	private AutoCompleteTextView from;
 	private AutoCompleteTextView to;
@@ -36,7 +38,7 @@ public class SrcDstnActivity extends Activity implements SrcDstnView {
 	private Intent mIntent;
 	private Bundle mBundle;
 
-	private static final GoogleApiClient mGoogleApiClient = OxfordRoadRideSharingApplication.getGoogleApiHelper().getGoogleApiClient();
+	private static final GoogleApiClient mGoogleApiClient = ORRSApp.getGoogleApiClient();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,8 @@ public class SrcDstnActivity extends Activity implements SrcDstnView {
 
 		from = (AutoCompleteTextView) findViewById(R.id.from);
 		to = (AutoCompleteTextView) findViewById(R.id.to);
+
+		from.setText(Constants.YOUR_LOCATION);
 
 		from.setOnItemClickListener(new OnItemClickListener("src"));
 		to.setOnItemClickListener(new OnItemClickListener("dstn"));
@@ -118,11 +122,5 @@ public class SrcDstnActivity extends Activity implements SrcDstnView {
 		};
 
 	}
-
-	/*public String getJsonString(PlaceDetails placeDetails){
-		Gson gson = new Gson();
-		String jsonString = gson.toJson(placeDetails);
-		return jsonString;
-	}*/
 
 }

@@ -13,45 +13,46 @@ import com.vinay.oxfordroadridesharing.utils.Utilities;
  * Created by Vinay Nikhil Pabba on 30-01-2016.
  */
 public class StartPagePreviousLoginChecker implements
-        StartPagePresenter, OnTokenLoginFinishedListener {
+		StartPagePresenter, OnTokenLoginFinishedListener {
 
-    String TAG = Utilities.getTag (this);
+	String TAG = Utilities.getTag(this);
 
-    StartPageView view;
-    StartPageInteractor interactor;
+	StartPageView view;
+	StartPageInteractor interactor;
 
-    public StartPagePreviousLoginChecker (StartPageView view){
-        this.view = view;
-        interactor = new StartPageInteractorImpl ();
-        Log.i (TAG, "PreviousLoginChecker created");
-    }
+	public StartPagePreviousLoginChecker(StartPageView view) {
+		this.view = view;
+		interactor = new StartPageInteractorImpl();
+		Log.i(TAG, "PreviousLoginChecker created");
+	}
 
-    @Override
-    public void loginWithPassword (String accessToken) {
-        Log.i(TAG, "Logging in with Password");
-        interactor.loginWithToken (Constants.PROVIDER_PASSWORD, accessToken, this);
-    }
+	@Override
+	public void loginWithPassword(String accessToken) {
+		Log.i(TAG, "Logging in with Password");
+		interactor.loginWithToken(Constants.PROVIDER_PASSWORD, accessToken, this);
+	}
 
-    @Override
-    public void onInitialized () {
+	@Override
+	public void onInitialized() {
 
-        if(AccessToken.getCurrentAccessToken () != null){
-            Log.i(TAG, "Logging in with Facebook");
-            interactor.loginWithToken (Constants.PROVIDER_FACEBOOK, AccessToken.getCurrentAccessToken ().getToken (), this);
-        }
+		if(AccessToken.getCurrentAccessToken() != null) {
+			Log.i(TAG, "Logging in with Facebook");
+			interactor.loginWithToken(Constants.PROVIDER_FACEBOOK, AccessToken.getCurrentAccessToken().getToken(), this);
+		}
 
-    }
+	}
 
-    @Override
-    public void onLoginSuccessful (String provider, String uid, String accessToken) {
-        view.disableLoginPage ();
-        view.writeToSharedPreferences (provider, uid, accessToken);
-        view.openMainPage ();
-    }
+	@Override
+	public void onLoginSuccessful(String provider, String uid, String accessToken) {
+		Log.i(TAG, "Login Successful");
+		view.disableLoginPage();
+		view.writeToSharedPreferences(provider, uid, accessToken);
+		view.openMainPage();
+	}
 
-    @Override
-    public void onLoginUnsuccessful () {
-        view.showMessage ("Your access token has expired\nPlease re-com.example.benjaminlize.loginapp.GlobalLogin.login");
-        view.openLoginPage ();
-    }
+	@Override
+	public void onLoginUnsuccessful() {
+		view.showMessage("Your access token has expired\nPlease re-login");
+		view.openLoginPage();
+	}
 }

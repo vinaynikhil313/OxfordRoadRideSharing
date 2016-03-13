@@ -1,7 +1,10 @@
 package com.vinay.oxfordroadridesharing.main.view;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.vinay.oxfordroadridesharing.user.Ride;
+import com.vinay.oxfordroadridesharing.user.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,5 +21,9 @@ public interface MainActivityFragmentView {
 	void showProgressDialog();
 
 	void hideProgressDialog();
+
+	void openRidesList(ArrayList<Ride> matchedRides);
+
+	void showDrivers(List<Ride> matchedRides, List<User> driversList);
 
 }

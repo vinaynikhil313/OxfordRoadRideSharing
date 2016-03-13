@@ -18,7 +18,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.PolyUtil;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import com.vinay.oxfordroadridesharing.application.OxfordRoadRideSharingApplication;
+import com.vinay.oxfordroadridesharing.application.ORRSApp;
 import com.vinay.oxfordroadridesharing.main.presenter.OnResultGeneratedListener;
 import com.vinay.oxfordroadridesharing.user.Ride;
 import com.vinay.oxfordroadridesharing.user.User;
@@ -31,6 +31,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -50,7 +51,7 @@ public class MainActivityFragmentInteractorImpl implements MainActivityFragmentI
 	private User mUser;
 
 	private Ride mCurrentRide;
-	private String mRideId = "R002";
+	private String mRideId;
 
 	private Activity mActivity;
 
@@ -58,12 +59,14 @@ public class MainActivityFragmentInteractorImpl implements MainActivityFragmentI
 
 	private final String TAG = Utilities.getTag(this);
 
+	Random random = new Random();
+
 	public MainActivityFragmentInteractorImpl() {
 
 		mLocationRequest = new LocationRequest();
 		mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 		mLocationRequest.setInterval(10 * 1000);
-		mLocationRequest.setFastestInterval(2 * 1000);
+		mLocationRequest.setFastestInterval(4 * 1000);
 
 	}
 
@@ -73,7 +76,7 @@ public class MainActivityFragmentInteractorImpl implements MainActivityFragmentI
 		this.mActivity = activity;
 		this.listener = listener;
 
-		mGoogleApiClient = OxfordRoadRideSharingApplication.getGoogleApiHelper().getGoogleApiClient();
+		mGoogleApiClient = ORRSApp.getGoogleApiClient();
 
 		if(Build.VERSION.SDK_INT == Build.VERSION_CODES.M
 				&& ActivityCompat.checkSelfPermission(mActivity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
@@ -86,8 +89,6 @@ public class MainActivityFragmentInteractorImpl implements MainActivityFragmentI
 			Log.i(TAG, "Permissions already Exist or Version is not Marsh mellow");
 			Location mLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
 			if(mLocation != null){
-				//mCurrentLatLng = new LatLng(mLocation.getLatitude(), mLocation.getLongitude());
-				//listener.onLocationDetected(mCurrentLatLng);
 				onLocationChanged(mLocation);
 			}
 			LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
@@ -121,9 +122,11 @@ public class MainActivityFragmentInteractorImpl implements MainActivityFragmentI
 		this.mUser = user;
 
 		RequestParams mRequestParams = new RequestParams();
-		mRequestParams.put(Constants.ORIGIN_TEXT, Constants.PLACE_ID_TEXT + src);
+		if(!src.equals(Constants.YOUR_LOCATION))
+			mRequestParams.put(Constants.ORIGIN_TEXT, Constants.PLACE_ID_TEXT + src);
+		else
+			mRequestParams.put(Constants.ORIGIN_TEXT, mCurrentLatLng.latitude + "," + mCurrentLatLng.longitude);
 		mRequestParams.put(Constants.DESTINATION_TEXT, Constants.PLACE_ID_TEXT + dstn);
-		mRequestParams.put(Constants.KEY_TEXT, Constants.KEY_VALUE);
 
 		GoogleDirectionsApiHelper.get("directions", mRequestParams, responseHandler);
 	}
@@ -145,6 +148,8 @@ public class MainActivityFragmentInteractorImpl implements MainActivityFragmentI
 
 				String mEncodedPoints = mRoute.getJSONObject("overview_polyline").getString
 						("points");
+
+				mRideId = "R" + random.nextInt(1000);
 
 				mCurrentRide = new Ride();
 				mCurrentRide.setId(mRideId);

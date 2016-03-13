@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -29,18 +30,24 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.gson.Gson;
 import com.vinay.oxfordroadridesharing.R;
 import com.vinay.oxfordroadridesharing.main.presenter.MainActivityFragmentPresenter;
 import com.vinay.oxfordroadridesharing.main.presenter.MainActivityFragmentPresenterImpl;
+import com.vinay.oxfordroadridesharing.rides.view.RidesListActivity;
 import com.vinay.oxfordroadridesharing.src_dstn.view.SrcDstnActivity;
+import com.vinay.oxfordroadridesharing.user.Ride;
 import com.vinay.oxfordroadridesharing.user.User;
 import com.vinay.oxfordroadridesharing.utils.Constants;
 import com.vinay.oxfordroadridesharing.utils.Utilities;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -51,7 +58,7 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
 	public static final int MODE_DRIVE = 0;
 	public static final int MODE_SHARE = 1;
 	private final String[] MODES = {"Drive", "Share"};
-	private int mRideMode;
+	private int mRideMode = - 1;
 
 	private final String TAG = Utilities.getTag(this);
 
@@ -59,6 +66,8 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
 
 	private MapView mMapView;
 	private GoogleMap mGoogleMap;
+	private LatLng mCurrentLocation;
+	private List<LatLng> mDirections;
 
 	private Activity mActivity;
 
@@ -68,6 +77,8 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
 	private ButtonsFragment mButtonsFragment;
 
 	private SharedPreferences mSharedPreferences;
+
+	private Map<Marker, User> mMarkersDataMap;
 
 	View view;
 
@@ -97,6 +108,13 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
 		mRideButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				/*final Intent intent = new Intent(Intent.ACTION_VIEW,
+						Uri.parse("http://maps.google.com/maps?" + "saddr="
+								+ 51.5072 + "," + -0.13 + "&daddr="
+								+ 51.5172 + "," + -0.14));
+				intent.setClassName("com.google.android.apps.maps",
+						"com.google.android.maps.MapsActivity");
+				startActivity(intent);*/
 				createDialog();
 			}
 		});
@@ -104,6 +122,8 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
 		mSharedPreferences = mActivity.getSharedPreferences(Constants.MY_PREF, Context
 				.MODE_PRIVATE);
 		mFragmentManager = getFragmentManager();
+
+		mMarkersDataMap = new HashMap<>();
 
 		return view;
 	}
@@ -168,24 +188,34 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		showProgressDialog();
+		if(data == null)
+			return;
 		Log.i(TAG, requestCode + " " + resultCode + " " + data.toString());
+		showProgressDialog();
 
 		if(requestCode == Constants.PLACE_AUTOCOMPLETE_REQUEST_CODE
 				&& resultCode == Activity.RESULT_OK) {
 			Bundle mBundle = data.getExtras();
 			String mSrcId = mBundle.getString("src");
 			String mDstnId = mBundle.getString("dstn");
+			if(mSrcId == null || mSrcId.isEmpty())
+				mSrcId = Constants.YOUR_LOCATION;
+			Log.i(TAG, mSrcId + " -> " + mDstnId);
+			mRideButton.setVisibility(View.GONE);
+			presenter.getDirections(getUser(), mSrcId, mDstnId);
 
-			Log.i(TAG, mBundle.get("src").toString() + " " + mBundle.get("dstn").toString());
 			if(mRideMode == MODE_DRIVE) {
-				mRideButton.setVisibility(View.GONE);
-				presenter.getDirections(getUser(), mSrcId, mDstnId);
+				/*mRideButton.setVisibility(View.GONE);
+				presenter.getDirections(getUser(), mSrcId, mDstnId);*/
 				mButtonsFragment = new ButtonsFragment(this);
 				mFragmentManager.beginTransaction().replace(R.id.placeholderLayout, mButtonsFragment).commit();
-			} else if(mRideMode == MODE_SHARE)
+			} else if(mRideMode == MODE_SHARE) {
 				presenter.getRides(mSrcId, mDstnId);
+			}
+		} else if(requestCode == Constants.NAVIGATION_REQUEST_CODE) {
+			Log.i(TAG, "Returned from Navigation to Main Page");
 		}
+
 	}
 
 	@Override
@@ -193,6 +223,8 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
 
 		if(mGoogleMap == null)
 			return;
+
+		mCurrentLocation = latLng;
 
 		if(ActivityCompat.checkSelfPermission(mActivity, Manifest.permission
 				.ACCESS_FINE_LOCATION) ==
@@ -203,8 +235,12 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
 
 		}
 
-		CameraPosition cameraPosition = new CameraPosition(latLng, Constants.LOCATION_ZOOM_LEVEL,
-				0, 0);
+		CameraPosition cameraPosition;
+
+		if(mRideMode == - 1)
+			cameraPosition = new CameraPosition(latLng, Constants.LOCATION_ZOOM_LEVEL, 0, 0);
+		else
+			cameraPosition = new CameraPosition(latLng, 0, 0, 0);
 		mGoogleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 	}
 
@@ -223,7 +259,8 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
 				.setPositiveButton("Ride!", new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						startActivityForResult(new Intent(getActivity(), SrcDstnActivity.class), Constants.PLACE_AUTOCOMPLETE_REQUEST_CODE);
+						if(mRideMode != - 1)
+							startActivityForResult(new Intent(getActivity(), SrcDstnActivity.class), Constants.PLACE_AUTOCOMPLETE_REQUEST_CODE);
 					}
 				})
 				.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -240,7 +277,8 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
 	@Override
 	public void drawPath(List<LatLng> points, List<LatLng> latLngBounds) {
 
-		Log.i(TAG, "Size = " + points.size());
+		Log.i(TAG, "Points Size = " + points.size());
+		mDirections = points;
 
 		mGoogleMap.clear();
 
@@ -265,9 +303,40 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
 		LatLngBounds.Builder mBoundsBuilder = new LatLngBounds.Builder();
 		mBoundsBuilder.include(latLngBounds.get(0));
 		mBoundsBuilder.include(latLngBounds.get(1));
-		mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(mBoundsBuilder.build(), 10));
+		mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(mBoundsBuilder.build(), 100));
 		mGoogleMap.addPolyline(polyline);
+
 		hideProgressDialog();
+	}
+
+	@Override
+	public void openRidesList(ArrayList<Ride> matchedRides) {
+		Intent intent = new Intent(getContext(), RidesListActivity.class);
+		intent.putExtra("ridesList", matchedRides);
+		startActivity(intent);
+	}
+
+	@Override
+	public void showDrivers(List<Ride> matchedRides, List<User> driversList) {
+		for(int i = 0; i < driversList.size(); i++) {
+
+			Marker marker = mGoogleMap.addMarker(new MarkerOptions().position(
+					new LatLng(matchedRides.get(i).getCurrentLocationLat(), matchedRides.get(i).getCurrentLocationLng
+							())));
+			mMarkersDataMap.put(marker, driversList.get(i));
+
+			mGoogleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+				@Override
+				public boolean onMarkerClick(Marker marker) {
+					User mDriver = mMarkersDataMap.get(marker);
+					AlertDialog.Builder builder = new AlertDialog.Builder(mActivity)
+							.setTitle(mDriver.getDisplayName())
+							.setMessage("You can call the driver at 9999999999");
+					builder.show();
+					return false;
+				}
+			});
+		}
 	}
 
 	@Override
@@ -284,6 +353,14 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
 	public void startDrive() {
 		Log.i(TAG, "Drive started");
 		presenter.startRide();
+		final Intent intent = new Intent(Intent.ACTION_VIEW,
+				Uri.parse("http://maps.google.com/maps?" + "saddr="
+						+ mDirections.get(0).latitude + "," + mDirections.get(0).longitude
+						+ "&daddr=" + mDirections.get(mDirections.size() - 1).latitude + "," + mDirections.get(mDirections.size() - 1)
+						.longitude));
+		intent.setClassName("com.google.android.apps.maps",
+				"com.google.android.maps.MapsActivity");
+		startActivityForResult(intent, Constants.NAVIGATION_REQUEST_CODE);
 	}
 
 	@Override
@@ -302,11 +379,11 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
 		mRideButton.setVisibility(View.VISIBLE);
 	}
 
-	private User getUser(){
+	private User getUser() {
 		String mJSON = mSharedPreferences.getString("user", "");
 		if(mJSON == null || mJSON.equals(""))
 			return null;
-		else{
+		else {
 			Gson gson = new Gson();
 			return gson.fromJson(mJSON, User.class);
 		}

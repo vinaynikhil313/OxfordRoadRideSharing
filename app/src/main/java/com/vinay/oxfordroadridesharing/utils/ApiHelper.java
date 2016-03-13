@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.firebase.client.Firebase;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
@@ -12,14 +13,16 @@ import com.google.android.gms.location.places.Places;
 /**
  * Created by Vinay Nikhil Pabba on 29-02-2016.
  */
-public class GoogleApiHelper implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
-	private static final String TAG = GoogleApiHelper.class.getSimpleName();
+public class ApiHelper implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+	private static final String TAG = ApiHelper.class.getSimpleName();
 
-	GoogleApiClient mGoogleApiClient;
+	private GoogleApiClient mGoogleApiClient;
+	private Firebase mFirebase = new Firebase(Constants.FIREBASE_REF);
 
 	Context mContext;
 
-	public GoogleApiHelper(Context context) {
+	public ApiHelper(Context context) {
+		mFirebase.keepSynced(true);
 		this.mContext = context;
 		buildGoogleApiClient();
 		connect();
@@ -27,6 +30,10 @@ public class GoogleApiHelper implements GoogleApiClient.ConnectionCallbacks, Goo
 
 	public GoogleApiClient getGoogleApiClient() {
 		return this.mGoogleApiClient;
+	}
+
+	public Firebase getFirebaseInstance() {
+		return mFirebase;
 	}
 
 	public void connect() {

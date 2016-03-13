@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
-import com.google.maps.android.PolyUtil;
 import com.vinay.oxfordroadridesharing.main.interactor.drive.MainActivityFragmentInteractor;
 import com.vinay.oxfordroadridesharing.main.interactor.drive.MainActivityFragmentInteractorImpl;
 import com.vinay.oxfordroadridesharing.main.interactor.share.SharingInteractor;
@@ -14,6 +13,7 @@ import com.vinay.oxfordroadridesharing.user.Ride;
 import com.vinay.oxfordroadridesharing.user.User;
 import com.vinay.oxfordroadridesharing.utils.Utilities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -82,14 +82,22 @@ public class MainActivityFragmentPresenterImpl implements MainActivityFragmentPr
 	}
 
 	@Override
-	public void onRidesGenerated(List<Ride> matchedRides) {
+	public void onRidesGenerated(ArrayList<Ride> matchedRides) {
 		view.hideProgressDialog();
 		Log.i(TAG, "Size = " + matchedRides.size());
 		if(matchedRides != null && matchedRides.size() > 0) {
 			Log.i(TAG, "Route = " + matchedRides.get(0).getRoute());
 			Log.i(TAG, "Bounds = " + matchedRides.get(0).getBounds());
-			view.drawPath(PolyUtil.decode(matchedRides.get(0).getRoute()), PolyUtil.decode(matchedRides.get(0)
-					.getBounds()));
+			//view.drawPath(PolyUtil.decode(matchedRides.get(0).getRoute()), PolyUtil.decode(matchedRides.get(0)
+			//		.getBounds()));
+			//view.openRidesList(matchedRides);
+		}
+	}
+
+	@Override
+	public void onDriversListGenerated(List<Ride> matchedRides, List<User> driversList) {
+		if(driversList.size() > 0){
+			view.showDrivers(matchedRides, driversList);
 		}
 	}
 }

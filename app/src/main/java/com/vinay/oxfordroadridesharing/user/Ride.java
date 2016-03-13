@@ -1,9 +1,11 @@
 package com.vinay.oxfordroadridesharing.user;
 
+import java.io.Serializable;
+
 /**
  * Created by Vinay Nikhil Pabba on 02-03-2016.
  */
-public class Ride {
+public class Ride implements Serializable{
 
 	private String id;
 	private String driverUid;
