@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Vinay Nikhil Pabba on 17-01-2016. POJO for retrieving all the User related information
- * from Firebase
+ * Created by Vinay Nikhil Pabba on 17-01-2016. POJO for retrieving all the User related information from Firebase
  */
 public class User {
 	private String accessToken;
 	private String displayName;
+	private String phoneNo;
 	private String email;
 	private String profileImageURL;
 	private String provider;
@@ -30,6 +30,14 @@ public class User {
 
 	public void setDisplayName(String displayName) {
 		this.displayName = displayName;
+	}
+
+	public String getPhoneNo() {
+		return phoneNo;
+	}
+
+	public void setPhoneNo(String phoneNo) {
+		this.phoneNo = phoneNo;
 	}
 
 	public String getEmail() {

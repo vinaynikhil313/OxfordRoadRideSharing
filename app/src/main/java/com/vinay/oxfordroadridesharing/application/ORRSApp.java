@@ -1,6 +1,10 @@
 package com.vinay.oxfordroadridesharing.application;
 
 import android.app.Application;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.widget.Toast;
 
 import com.facebook.FacebookSdk;
 import com.firebase.client.Firebase;
@@ -30,7 +34,16 @@ public class ORRSApp extends Application {
 		Firebase.setAndroidContext(this);
 		Firebase.getDefaultConfig().setPersistenceEnabled(true);
 
-		mApiHelper = new ApiHelper(getApplicationContext());
+		if(isNetworkAvailable())
+			mApiHelper = new ApiHelper(getApplicationContext());
+
+	}
+
+	private boolean isNetworkAvailable() {
+		ConnectivityManager connectivityManager
+				= (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+		return activeNetworkInfo != null && activeNetworkInfo.isConnected();
 	}
 
 	private static synchronized ORRSApp getAppInstance() {
@@ -40,10 +53,6 @@ public class ORRSApp extends Application {
 	private ApiHelper getApiHelperInstance() {
 		return this.mApiHelper;
 	}
-
-	/*public static ApiHelper getApiHelper() {
-		return getAppInstance().getApiHelperInstance();
-	}*/
 
 	public static GoogleApiClient getGoogleApiClient() {
 		return getAppInstance().getApiHelperInstance().getGoogleApiClient();

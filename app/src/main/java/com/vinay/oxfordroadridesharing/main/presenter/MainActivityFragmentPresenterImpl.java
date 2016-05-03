@@ -56,23 +56,34 @@ public class MainActivityFragmentPresenterImpl implements MainActivityFragmentPr
 
 	@Override
 	public void getRides(String src, String dstn) {
+		Log.i(TAG, "Inside getRides");
 		view.showProgressDialog();
 		mSharingInteractor = new SharingInteractorImpl();
 		mSharingInteractor.getRides(src, dstn, this);
 	}
 
 	@Override
-	public void startRide() {
-		interactor.startRide();
+	public void getRides(LatLng src, String dstn) {
+		Log.i(TAG, "Inside getRides");
+		view.showProgressDialog();
+		mSharingInteractor = new SharingInteractorImpl();
+		mSharingInteractor.getRides(src, dstn, this);
 	}
 
 	@Override
-	public void finishRide() {
-		interactor.finishRide();
+	public void startDrive() {
+		interactor.startDrive();
+	}
+
+	@Override
+	public void finishDrive() {
+		interactor.finishDrive();
 	}
 
 	@Override
 	public void onLocationDetected(LatLng latLng) {
+		Log.i(TAG, "Inside Presenter onLocationDetected = " + latLng.toString());
+		Log.i(TAG, "view = " + view.toString());
 		view.moveSourceLocation(latLng);
 	}
 
@@ -88,14 +99,13 @@ public class MainActivityFragmentPresenterImpl implements MainActivityFragmentPr
 		if(matchedRides != null && matchedRides.size() > 0) {
 			Log.i(TAG, "Route = " + matchedRides.get(0).getRoute());
 			Log.i(TAG, "Bounds = " + matchedRides.get(0).getBounds());
-			//view.drawPath(PolyUtil.decode(matchedRides.get(0).getRoute()), PolyUtil.decode(matchedRides.get(0)
-			//		.getBounds()));
-			//view.openRidesList(matchedRides);
 		}
 	}
 
 	@Override
 	public void onDriversListGenerated(List<Ride> matchedRides, List<User> driversList) {
+		view.hideProgressDialog();
+		Log.i(TAG, "Drivers list Size = " + driversList.size());
 		if(driversList.size() > 0){
 			view.showDrivers(matchedRides, driversList);
 		}

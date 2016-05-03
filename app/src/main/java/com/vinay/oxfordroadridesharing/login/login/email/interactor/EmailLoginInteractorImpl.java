@@ -73,7 +73,7 @@ public class EmailLoginInteractorImpl implements
     @Override
     public void onDataChange (DataSnapshot dataSnapshot) {
         User user = dataSnapshot.getValue (User.class);
-        Log.i("EMAIL INTERACTOR", "UID + " + user.getUid ());
+        Log.i("EMAIL INTERACTOR", "User = " + user);
         listener.onSuccess (user);
     }
 }

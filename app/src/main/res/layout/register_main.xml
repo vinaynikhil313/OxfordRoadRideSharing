@@ -15,6 +15,15 @@
         android:layout_marginTop="120dp"
         tools:layout="@layout/details_fragment"/>
 
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:ems="10"
+        android:id="@+id/phoneNumber"
+        android:hint="Enter your phone number"
+        android:layout_marginTop="30dp"/>
+
     <Button
         android:id="@+id/registerButton"
         android:layout_width="wrap_content"

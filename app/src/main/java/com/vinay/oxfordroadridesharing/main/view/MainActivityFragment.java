@@ -20,6 +20,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -59,6 +61,8 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
 	public static final int MODE_SHARE = 1;
 	private final String[] MODES = {"Drive", "Share"};
 	private int mRideMode = - 1;
+	private Marker mCurrentLocationPin;
+	private boolean mLocationSet = false;
 
 	private final String TAG = Utilities.getTag(this);
 
@@ -67,6 +71,8 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
 	private MapView mMapView;
 	private GoogleMap mGoogleMap;
 	private LatLng mCurrentLocation;
+	private String mSrcId;
+	private String mDstnId;
 	private List<LatLng> mDirections;
 
 	private Activity mActivity;
@@ -89,13 +95,11 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
 							 Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.maps_fragment, container, false);
 
-		presenter = new MainActivityFragmentPresenterImpl(this);
-
 		mActivity = getActivity();
 
 		setupGoogleMap(savedInstanceState);
 
-		presenter.connectToGoogleApi(mActivity);
+		presenter = new MainActivityFragmentPresenterImpl(this);
 
 		mProgressDialog = new ProgressDialog(mActivity);
 		mProgressDialog.setMessage("Please Wait..");
@@ -108,13 +112,6 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
 		mRideButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				/*final Intent intent = new Intent(Intent.ACTION_VIEW,
-						Uri.parse("http://maps.google.com/maps?" + "saddr="
-								+ 51.5072 + "," + -0.13 + "&daddr="
-								+ 51.5172 + "," + -0.14));
-				intent.setClassName("com.google.android.apps.maps",
-						"com.google.android.maps.MapsActivity");
-				startActivity(intent);*/
 				createDialog();
 			}
 		});
@@ -125,6 +122,8 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
 
 		mMarkersDataMap = new HashMap<>();
 
+		mButtonsFragment = new ButtonsFragment(this);
+
 		return view;
 	}
 
@@ -134,7 +133,7 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
 		mMapView.onCreate(savedInstanceState);
 		mMapView.onResume();
 
-		MapsInitializer.initialize(mActivity.getApplicationContext());
+		MapsInitializer.initialize(getActivity().getApplicationContext());
 
 		mMapView.getMapAsync(new OnMapReadyCallback() {
 
@@ -147,10 +146,17 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
 				mGoogleMap.getUiSettings().setCompassEnabled(true);
 				mGoogleMap.getUiSettings().setMyLocationButtonEnabled(true);
 
-				CameraPosition cameraPosition = new CameraPosition.Builder()
-						.target(new LatLng(Constants.LONDON_LAT, Constants.LONDON_LNG))
-						.zoom(9)
-						.build();
+				presenter.connectToGoogleApi(mActivity);
+
+				CameraPosition cameraPosition;
+				if(mCurrentLocation == null)
+					cameraPosition = new CameraPosition.Builder()
+							.target(new LatLng(Constants.LONDON_LAT, Constants.LONDON_LNG))
+							.zoom(9)
+							.build();
+
+				else
+					cameraPosition = new CameraPosition(mCurrentLocation, Constants.LOCATION_ZOOM_LEVEL, 0, 0);
 
 				mGoogleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
@@ -195,23 +201,32 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
 
 		if(requestCode == Constants.PLACE_AUTOCOMPLETE_REQUEST_CODE
 				&& resultCode == Activity.RESULT_OK) {
+			mFragmentManager.beginTransaction().replace(R.id.placeholderLayout, mButtonsFragment).commit();
+			mRideButton.setVisibility(View.GONE);
 			Bundle mBundle = data.getExtras();
-			String mSrcId = mBundle.getString("src");
-			String mDstnId = mBundle.getString("dstn");
+			mSrcId = mBundle.getString("src");
+			mDstnId = mBundle.getString("dstn");
+			Log.i(TAG, "Srcid = " + mSrcId);
 			if(mSrcId == null || mSrcId.isEmpty())
 				mSrcId = Constants.YOUR_LOCATION;
 			Log.i(TAG, mSrcId + " -> " + mDstnId);
-			mRideButton.setVisibility(View.GONE);
-			presenter.getDirections(getUser(), mSrcId, mDstnId);
 
-			if(mRideMode == MODE_DRIVE) {
-				/*mRideButton.setVisibility(View.GONE);
-				presenter.getDirections(getUser(), mSrcId, mDstnId);*/
+			Log.i(TAG, "mRideMode = " + mRideMode);
+
+			/*if(mRideMode == MODE_DRIVE) {
+				*//*mRideButton.setVisibility(View.GONE);
+				presenter.getDirections(getUser(), mSrcId, mDstnId);*//*
 				mButtonsFragment = new ButtonsFragment(this);
 				mFragmentManager.beginTransaction().replace(R.id.placeholderLayout, mButtonsFragment).commit();
 			} else if(mRideMode == MODE_SHARE) {
-				presenter.getRides(mSrcId, mDstnId);
-			}
+				Log.i(TAG, "Sharing Selected!!");
+				if(mSrcId.equals(Constants.YOUR_LOCATION))
+					presenter.getRides(mCurrentLocation, mDstnId);
+				else
+					presenter.getRides(mSrcId, mDstnId);
+			}*/
+			presenter.getDirections(getUser(), mSrcId, mDstnId);
+
 		} else if(requestCode == Constants.NAVIGATION_REQUEST_CODE) {
 			Log.i(TAG, "Returned from Navigation to Main Page");
 		}
@@ -221,27 +236,27 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
 	@Override
 	public void moveSourceLocation(LatLng latLng) {
 
+		mCurrentLocation = latLng;
+
 		if(mGoogleMap == null)
 			return;
 
-		mCurrentLocation = latLng;
-
-		if(ActivityCompat.checkSelfPermission(mActivity, Manifest.permission
-				.ACCESS_FINE_LOCATION) ==
-				PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(mActivity,
-				Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-
-			mGoogleMap.setMyLocationEnabled(true);
-
+		if(ActivityCompat.checkSelfPermission(mActivity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager
+				.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(mActivity, Manifest.permission
+				.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+			return;
 		}
-
-		CameraPosition cameraPosition;
-
-		if(mRideMode == - 1)
-			cameraPosition = new CameraPosition(latLng, Constants.LOCATION_ZOOM_LEVEL, 0, 0);
+		if(!mLocationSet) {
+			mLocationSet = true;
+			CameraPosition cameraPosition = new CameraPosition(latLng, Constants.LOCATION_ZOOM_LEVEL, 0, 0);
+			mGoogleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+			mCurrentLocationPin = mGoogleMap.addMarker(new MarkerOptions()
+					.position(latLng)
+					.title("You are here")
+					.icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_40x40)));
+		}
 		else
-			cameraPosition = new CameraPosition(latLng, 0, 0, 0);
-		mGoogleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+			mCurrentLocationPin.setPosition(latLng);
 	}
 
 	@Override
@@ -277,20 +292,27 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
 	@Override
 	public void drawPath(List<LatLng> points, List<LatLng> latLngBounds) {
 
+		if(mRideMode == MODE_DRIVE){
+			mButtonsFragment.setButtonText("Start Drive");
+		}
+		else if(mRideMode == MODE_SHARE){
+			mButtonsFragment.setButtonText("Find Rides");
+		}
+
 		Log.i(TAG, "Points Size = " + points.size());
 		mDirections = points;
 
 		mGoogleMap.clear();
 
 		mGoogleMap.addMarker(new MarkerOptions()
-						.position(points.get(0))
-						.title("Source")
-						.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker2_24x40))
+				.position(points.get(0))
+				.title("Source")
+				.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker2_24x40))
 		);
 		mGoogleMap.addMarker(new MarkerOptions()
-						.position(points.get(points.size() - 1))
-						.title("Destination")
-						.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker1_40x32))
+				.position(points.get(points.size() - 1))
+				.title("Destination")
+				.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker1_40x32))
 		);
 
 		PolylineOptions polyline = new PolylineOptions()
@@ -318,7 +340,12 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
 
 	@Override
 	public void showDrivers(List<Ride> matchedRides, List<User> driversList) {
-		for(int i = 0; i < driversList.size(); i++) {
+
+		if(matchedRides.size() == 0){
+			Toast.makeText(mActivity, "No Rides found matching your Route", Toast.LENGTH_SHORT).show();
+			return;
+		}
+		/*for(int i = 0; i < driversList.size(); i++) {
 
 			Marker marker = mGoogleMap.addMarker(new MarkerOptions().position(
 					new LatLng(matchedRides.get(i).getCurrentLocationLat(), matchedRides.get(i).getCurrentLocationLng
@@ -329,14 +356,33 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
 				@Override
 				public boolean onMarkerClick(Marker marker) {
 					User mDriver = mMarkersDataMap.get(marker);
+					if(mDriver == null)
+						return true;
 					AlertDialog.Builder builder = new AlertDialog.Builder(mActivity)
 							.setTitle(mDriver.getDisplayName())
-							.setMessage("You can call the driver at 9999999999");
+							.setMessage("You can call the driver at " + mDriver.getPhoneNo());
 					builder.show();
-					return false;
+					return true;
 				}
 			});
-		}
+		}*/
+
+		AlertDialog.Builder alertDialog = new AlertDialog.Builder(mActivity);
+		LayoutInflater inflater = mActivity.getLayoutInflater();
+		View convertView = (View) inflater.inflate(R.layout.rides_list_main, null);
+		alertDialog.setView(convertView);
+		alertDialog.setTitle("Matches found");
+		ListView lv = (ListView) convertView.findViewById(R.id.ridesList);
+		DriversListAdapter adapter = new DriversListAdapter(mActivity, driversList);
+		lv.setAdapter(adapter);
+		alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+			}
+		});
+		alertDialog.show();
+
 	}
 
 	@Override
@@ -350,33 +396,51 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
 	}
 
 	@Override
-	public void startDrive() {
-		Log.i(TAG, "Drive started");
-		presenter.startRide();
-		final Intent intent = new Intent(Intent.ACTION_VIEW,
-				Uri.parse("http://maps.google.com/maps?" + "saddr="
-						+ mDirections.get(0).latitude + "," + mDirections.get(0).longitude
-						+ "&daddr=" + mDirections.get(mDirections.size() - 1).latitude + "," + mDirections.get(mDirections.size() - 1)
-						.longitude));
-		intent.setClassName("com.google.android.apps.maps",
-				"com.google.android.maps.MapsActivity");
-		startActivityForResult(intent, Constants.NAVIGATION_REQUEST_CODE);
+	public void startRide() {
+
+		if(mRideMode == MODE_DRIVE) {
+			Log.i(TAG, "Drive started");
+			presenter.startDrive();
+			Uri gmmIntentUri = Uri.parse("google.navigation:q=Taronga+Zoo,+Sydney+Australia");
+			final Intent intent = new Intent(Intent.ACTION_VIEW,
+					Uri.parse("http://maps.google.com/maps?" + "saddr="
+							+ mDirections.get(0).latitude + "," + mDirections.get(0).longitude
+							+ "&daddr=" + mDirections.get(mDirections.size() - 1).latitude + "," + mDirections.get(mDirections.size() - 1)
+							.longitude));
+			intent.setClassName("com.google.android.apps.maps",
+					"com.google.android.maps.MapsActivity");
+			Toast.makeText(getContext(), "Opening Google Maps for Turn by Turn Navigation", Toast.LENGTH_LONG).show();
+			startActivityForResult(intent, Constants.NAVIGATION_REQUEST_CODE);
+		}
+		else if(mRideMode == MODE_SHARE){
+			showProgressDialog();
+			if(mSrcId.equals(Constants.YOUR_LOCATION))
+				presenter.getRides(mCurrentLocation, mDstnId);
+			else
+				presenter.getRides(mSrcId, mDstnId);
+		}
 	}
 
 	@Override
-	public void finishDrive() {
-		presenter.finishRide();
+	public void finishRide() {
+		presenter.finishDrive();
 		mFragmentManager.beginTransaction().remove(mButtonsFragment).commit();
 		mGoogleMap.clear();
 		mRideButton.setVisibility(View.VISIBLE);
+		mRideMode = - 1;
+		mLocationSet = false;
+		moveSourceLocation(mCurrentLocation);
 	}
 
 	@Override
-	public void cancelDrive() {
+	public void cancelRide() {
 		Log.i(TAG, "Drive cancelled");
 		mFragmentManager.beginTransaction().remove(mButtonsFragment).commit();
 		mGoogleMap.clear();
 		mRideButton.setVisibility(View.VISIBLE);
+		mRideMode = - 1;
+		mLocationSet = false;
+		moveSourceLocation(mCurrentLocation);
 	}
 
 	private User getUser() {
@@ -385,6 +449,7 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
 			return null;
 		else {
 			Gson gson = new Gson();
+			Log.i(TAG, "JSON = " + mJSON);
 			return gson.fromJson(mJSON, User.class);
 		}
 	}

@@ -1,5 +1,6 @@
 package com.vinay.oxfordroadridesharing.main.interactor.share;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.vinay.oxfordroadridesharing.main.presenter.OnResultGeneratedListener;
 
 /**
@@ -8,5 +9,7 @@ import com.vinay.oxfordroadridesharing.main.presenter.OnResultGeneratedListener;
 public interface SharingInteractor {
 
 	void getRides(String src, String dstn, OnResultGeneratedListener listener);
+
+	void getRides(LatLng src, String dstn, OnResultGeneratedListener listener);
 
 }

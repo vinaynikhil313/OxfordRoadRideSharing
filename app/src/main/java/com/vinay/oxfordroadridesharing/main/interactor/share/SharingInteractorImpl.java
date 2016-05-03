@@ -63,9 +63,19 @@ public class SharingInteractorImpl implements SharingInteractor,
 	}
 
 	@Override
+	public void getRides(LatLng src, String dstn, OnResultGeneratedListener listener) {
+		this.listener = listener;
+		srcLatLng = src;
+		Log.i(TAG, "Src = " + srcLatLng.latitude + ", " + srcLatLng.longitude);
+		Log.i(TAG, "Is connected - " + mGoogleApiClient.isConnected());
+		Places.GeoDataApi.getPlaceById(mGoogleApiClient, dstn).setResultCallback(this);
+	}
+
+	@Override
 	public void onResult(PlaceBuffer places) {
 		dstnLatLng = places.get(0).getLatLng();
-		srcLatLng = places.get(1).getLatLng();
+		if(places.getCount() > 1)
+			srcLatLng = places.get(1).getLatLng();
 		Log.i(TAG, "Places are - " + srcLatLng + " -> " + dstnLatLng);
 		mFirebase.child("rides").addListenerForSingleValueEvent(new FirebaseValueEventListener(RIDES));
 		places.release();
@@ -123,6 +133,7 @@ public class SharingInteractorImpl implements SharingInteractor,
 						mMatchedRides.add(mCurrentRides.get(i / 2));
 					}
 				}
+				Log.i(TAG, "Matched Rides Size = " + mMatchedRides.size());
 				for(int i = 0; i < mMatchedRides.size(); i++) {
 					mFirebase.child("users").child(mMatchedRides.get(i).getDriverUid())
 							.addListenerForSingleValueEvent(new FirebaseValueEventListener(DRIVERS));
@@ -158,6 +169,7 @@ public class SharingInteractorImpl implements SharingInteractor,
 				getRides();
 			} else {
 				mDriversList.add(dataSnapshot.getValue(User.class));
+				Log.i(TAG, "Drivers List Size = " + mDriversList.size());
 				if(mDriversList.size() == mMatchedRides.size()) {
 					listener.onDriversListGenerated(mMatchedRides, mDriversList);
 				}

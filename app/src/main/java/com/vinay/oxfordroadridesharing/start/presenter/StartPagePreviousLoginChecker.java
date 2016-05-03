@@ -6,6 +6,7 @@ import com.facebook.AccessToken;
 import com.vinay.oxfordroadridesharing.start.interactor.StartPageInteractor;
 import com.vinay.oxfordroadridesharing.start.interactor.StartPageInteractorImpl;
 import com.vinay.oxfordroadridesharing.start.view.StartPageView;
+import com.vinay.oxfordroadridesharing.user.User;
 import com.vinay.oxfordroadridesharing.utils.Constants;
 import com.vinay.oxfordroadridesharing.utils.Utilities;
 
@@ -43,10 +44,9 @@ public class StartPagePreviousLoginChecker implements
 	}
 
 	@Override
-	public void onLoginSuccessful(String provider, String uid, String accessToken) {
-		Log.i(TAG, "Login Successful");
+	public void onLoginSuccessful(User user) {
 		view.disableLoginPage();
-		view.writeToSharedPreferences(provider, uid, accessToken);
+		view.writeToSharedPreferences(user);
 		view.openMainPage();
 	}
 

@@ -17,12 +17,11 @@ public class ApiHelper implements GoogleApiClient.ConnectionCallbacks, GoogleApi
 	private static final String TAG = ApiHelper.class.getSimpleName();
 
 	private GoogleApiClient mGoogleApiClient;
-	private Firebase mFirebase = new Firebase(Constants.FIREBASE_REF);
+	private static Firebase mFirebase = new Firebase(Constants.FIREBASE_REF);
 
 	Context mContext;
 
 	public ApiHelper(Context context) {
-		mFirebase.keepSynced(true);
 		this.mContext = context;
 		buildGoogleApiClient();
 		connect();
@@ -32,7 +31,8 @@ public class ApiHelper implements GoogleApiClient.ConnectionCallbacks, GoogleApi
 		return this.mGoogleApiClient;
 	}
 
-	public Firebase getFirebaseInstance() {
+	public static Firebase getFirebaseInstance() {
+		mFirebase.keepSynced(true);
 		return mFirebase;
 	}
 

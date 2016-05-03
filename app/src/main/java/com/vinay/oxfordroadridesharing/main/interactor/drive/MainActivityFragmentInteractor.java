@@ -18,8 +18,8 @@ public interface MainActivityFragmentInteractor {
 
     void fetchDirectionsFromApi(User user, String src, String dstn);
 
-	void startRide();
+	void startDrive();
 
-	void finishRide();
+	void finishDrive();
 
 }

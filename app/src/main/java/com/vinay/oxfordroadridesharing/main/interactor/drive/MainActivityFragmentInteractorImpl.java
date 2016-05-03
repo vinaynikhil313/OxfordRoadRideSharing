@@ -88,7 +88,8 @@ public class MainActivityFragmentInteractorImpl implements MainActivityFragmentI
 		} else {
 			Log.i(TAG, "Permissions already Exist or Version is not Marsh mellow");
 			Location mLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-			if(mLocation != null){
+			if(mLocation != null) {
+				Log.i(TAG, "Last Location Received - " + mLocation.toString());
 				onLocationChanged(mLocation);
 			}
 			LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
@@ -98,14 +99,20 @@ public class MainActivityFragmentInteractorImpl implements MainActivityFragmentI
 	@Override
 	public void requestLocationUpdates() {
 
-		Log.i(TAG, "Request Location Updates is Connected = " + mGoogleApiClient.isConnected());
-
-		if(mGoogleApiClient != null && mGoogleApiClient.isConnected()) {
-			if(ActivityCompat.checkSelfPermission(mActivity, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
-					&& ActivityCompat.checkSelfPermission(mActivity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-				LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+		if(mGoogleApiClient != null) {
+			if(mGoogleApiClient.isConnected()) {
+				Log.i(TAG, "Request Location Updates is Connected = " + mGoogleApiClient.isConnected());
+				if(ActivityCompat.checkSelfPermission(mActivity, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+						&& ActivityCompat.checkSelfPermission(mActivity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+					LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+				}
+			}
+			else {
+				mGoogleApiClient.connect();
+				requestLocationUpdates();
 			}
 		}
+
 	}
 
 	@Override
@@ -122,7 +129,7 @@ public class MainActivityFragmentInteractorImpl implements MainActivityFragmentI
 		this.mUser = user;
 
 		RequestParams mRequestParams = new RequestParams();
-		if(!src.equals(Constants.YOUR_LOCATION))
+		if(! src.equals(Constants.YOUR_LOCATION))
 			mRequestParams.put(Constants.ORIGIN_TEXT, Constants.PLACE_ID_TEXT + src);
 		else
 			mRequestParams.put(Constants.ORIGIN_TEXT, mCurrentLatLng.latitude + "," + mCurrentLatLng.longitude);
@@ -183,18 +190,18 @@ public class MainActivityFragmentInteractorImpl implements MainActivityFragmentI
 	};
 
 	@Override
-	public void startRide() {
+	public void startDrive() {
 		Log.i(TAG, "Ride started in Interactor");
-		if(mCurrentRide != null){
+		if(mCurrentRide != null) {
 			mCurrentRide.setActive(true);
 			mFirebase.child("rides").child(mRideId).setValue(mCurrentRide);
 		}
 	}
 
 	@Override
-	public void finishRide() {
+	public void finishDrive() {
 		Log.i(TAG, "Ride finished in Interactor");
-		if(mCurrentRide != null){
+		if(mCurrentRide != null) {
 			mCurrentRide.setActive(false);
 			mFirebase.child("rides").child(mRideId).setValue(mCurrentRide);
 		}
@@ -207,7 +214,7 @@ public class MainActivityFragmentInteractorImpl implements MainActivityFragmentI
 		Log.i(TAG, "in OnLocationChanged " + mCurrentLatLng.toString());
 		listener.onLocationDetected(mCurrentLatLng);
 
-		if(mCurrentRide != null && mCurrentRide.isActive()){
+		if(mCurrentRide != null && mCurrentRide.isActive()) {
 			mCurrentRide.setCurrentLocationLat(mCurrentLatLng.latitude);
 			mCurrentRide.setCurrentLocationLng(mCurrentLatLng.longitude);
 			mFirebase.child("rides").child(mCurrentRide.getId()).setValue(mCurrentRide);

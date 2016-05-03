@@ -5,10 +5,10 @@ package com.vinay.oxfordroadridesharing.main.view;
  */
 public interface OnExternalButtonClickedListener {
 
-	void startDrive();
+	void startRide();
 
-	void finishDrive();
+	void finishRide();
 
-	void cancelDrive();
+	void cancelRide();
 
 }

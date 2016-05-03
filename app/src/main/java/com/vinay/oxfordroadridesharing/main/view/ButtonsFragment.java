@@ -3,6 +3,7 @@ package com.vinay.oxfordroadridesharing.main.view;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +16,8 @@ import com.vinay.oxfordroadridesharing.R;
  */
 public class ButtonsFragment extends Fragment {
 
-	private Button mStartButton;
-	private Button mCancelButton;
+	private Button mStartButton = null;
+	private Button mCancelButton = null;
 
 	private boolean isRideStarted = false;
 
@@ -47,12 +48,12 @@ public class ButtonsFragment extends Fragment {
 				case R.id.startDriveButton:
 					if(!isRideStarted) {
 						isRideStarted = true;
-						mExternalListener.startDrive();
+						mExternalListener.startRide();
 						mStartButton.setText("Finish");
 						mCancelButton.setVisibility(View.GONE);
 					}
 					else {
-						mExternalListener.finishDrive();
+						mExternalListener.finishRide();
 						isRideStarted = false;
 						mStartButton.setText("Start");
 						mCancelButton.setVisibility(View.VISIBLE);
@@ -60,10 +61,17 @@ public class ButtonsFragment extends Fragment {
 					break;
 
 				case R.id.cancelDriveButton:
-					mExternalListener.cancelDrive();
+					mExternalListener.cancelRide();
 					break;
 			}
 		}
 	};
+
+	void setButtonText(String text){
+		if(mStartButton != null)
+			mStartButton.setText(text);
+		else
+			Log.i("Buttons Fragment", "mStartButton is null");
+	}
 
 }

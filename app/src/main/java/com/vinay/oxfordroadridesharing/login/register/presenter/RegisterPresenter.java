@@ -5,6 +5,6 @@ package com.vinay.oxfordroadridesharing.login.register.presenter;
  */
 public interface RegisterPresenter {
 
-    void createUser (String email, String password);
+    void createUser (String email, String password, String phoneNo);
 
 }

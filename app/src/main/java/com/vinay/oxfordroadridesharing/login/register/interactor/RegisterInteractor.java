@@ -8,6 +8,6 @@ import com.vinay.oxfordroadridesharing.login.register.presenter.OnRegisterFinish
  */
 public interface RegisterInteractor {
 
-    void registerUser (String email, String password, OnRegisterFinishedListener listener);
+    void registerUser (String email, String password, String phoneNo, OnRegisterFinishedListener listener);
 
 }
